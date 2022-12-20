@@ -29,18 +29,19 @@ const PegarIngrediente = async () => {
   return ing
 }
 
-const RegistrarProducao = async (n, di, df, qp, obj, id_aux, id_pro, id_tec, id_ing, qut) => {
+const RegistrarProducao = async (produto_criado, n_producao, data_inicio, data_fim, 
+  regristro_ocorrencia, objetivo, nomeAuxiliar, nome_tecnico, ingredientesUtili) => {
   const inserir = await Api.post('dados/registrar_producao', {
-    nome: n,
-    data_inicio: di,
-    data_fim: df,
-    quantidade_produzida: qp,
-    objetivo: obj,
-    id_auxiliar: id_aux,
-    id_produto: id_pro,
-    id_tecnico: id_tec,
-    id_ingrediente: id_ing,
-    quantidade: qut
+    
+    nomeProd_Criado: produto_criado, // [{nome quant} {nome quant}]
+    n_producao: n_producao,  // ex. 1/2022
+    data_inicio: data_inicio,
+    data_fim: data_fim,
+    regristro_ocorrencia: regristro_ocorrencia, // pode ser null
+    objetivo: objetivo, // talvez possa ser null
+    nomeAuxiliares: nomeAuxiliar, // ["Allan", "Denys", "Paulo"]
+    nome_tecnicos: nome_tecnico, // ["Ramon", "Mayomir", "Paulo"]
+    ingredientesUtili: ingredientesUtili // [{nome quant}, {nome quant}]
   })
 }
 

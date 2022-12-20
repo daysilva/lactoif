@@ -1,64 +1,41 @@
 const connection = require('./conexao')
 
-const CadastrarAuxiliar_producao = async (nomeAuxiliar, n_producao) => {
 
-    // descobrir o id da producao
-   const idProducao = `select id from producao where n_producao = "${n_producao}"`
-   const id_prod = await connection.execute(idProducao)
-   console.log(id_prod[0])
 
-    for (let i = 0; i < nomeAuxiliar.length; i++) {
+const CadastrarProduto_criado = async (produto_criado) => {
+    let values = []
 
-         // asntes dar um select para descobrir qual o id do nome desse tecnico q mandaram
-        const id_auxiliar = `select id from auxiliares where nome = "${nomeAuxiliar[i]}"`
-        const id_aux = await connection.execute(id_auxiliar)
-
-        const id_Auxiliar2 = await id_aux[0]
-
-        for (let x = 0; x < id_prod[0].length; x++) {
-            
-             [{nome: id_aux}]
-            // vai estar dentro de um for
-            console.log(`idAux: ${id_Auxiliar2[i].id} idPro ${id_prod[0][x].id}`)
-             const a = 'INSERT INTO auxiliar_produto (id_auxiliar, id_producao) VALUES (?, ?)'
-               const auxiliar = await connection.execute(a,
-                   [id_aux[0][0].id, id_prod])
-            
-        }
+    for (let i = 0; i < produto_criado.length; i++) {
+        values.push([produto_criado[i].nome_produto, produto_criado[i].quantidade_produzida])
     }
 
+    try {
+        console.log(values)
+        var sql = "INSERT INTO produto_criado (nome_produto, quantidade_produzida) VALUES ?"
+       
+        const a = await connection.query(sql, [values])
+       } catch (e) {
 
-
-   // [{nome: }]
-   // vai estar dentro de um for
-//    const a = 'INSERT INTO auxiliar_produto (id_auxiliar, id_producao) VALUES (?, ?)'
-//    const auxiliar = await connection.execute(a,
-//        [id_aux[0][0].id, id_prod])
+        return console.log("colunas duplicadas " + e)
+       }
 }
 
 
-/* const exibirAuxi = async (nomeAuxiliar) => {
 
-    const selectTextoInicio = 'select'
-
-
-    for (let i = 0; i < nomeAuxiliar.length; i++) {
-        selectTextoInicio += ' (select id from auxiliares where nome = ' +  nomeAuxiliar[i] + '"),'
-    }
-
-    selectTextoInicio += ' from auxiliares'
-    console.log(selectTextoInicio) */
-
-    //  const id_aux = await connection.execute(selectTextoInicio)
-    //  console.log(id_aux[0])
-// }
-
-
-const aux = ["allan", "Ricardo"]
+// teste para cadastrar tecnico e auxiliar
+const aux = ["Ramon", "Mayomir"]
+// ingrediente gasto em produção
+const ingr = [
+    {"nome_ingrediente": "leite", "quantidade": 1}, 
+    {"nome_ingrediente": "farinha", "quantidade": 1}]
 const prod = "1/2022"
 
+// cadastrar produção
+const p = ["queijo", "bolo"]
 
-// CadastrarAuxiliar_producao(aux, prod)
-exibirAuxi(aux)
+const produto_cr = [{nome_produto: "iorgute", quantidade_produzida: 2}, {nome_produto: "doce", quantidade_produzida: 3}]
 
+// CadastrarProduto("2/2022", "2022-12-31 23:59:59", "2022-12-31 6:59:59", p, "nada", "nada")
+CadastrarProduto_criado(produto_cr)
 
+// CadastrarIngrediente(ingr, prod)

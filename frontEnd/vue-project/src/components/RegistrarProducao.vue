@@ -12,7 +12,18 @@
 
       // variaveis que vao pegar os valores selecionados e mandar para
       // a funcao regidtrarProducao()
-      nomeProduto: []
+      nomeP: "",
+      quantProd: "",
+      nomeProd_Criado: [], // .push({"nome_produto": "iorgute", "quantidade_produzida": 2})
+      n_producao: "",
+      data_inicio: "",
+      data_fim: "",
+      regist_ocorren: null,
+      objetivo: "",
+      nomeAuxiliares: [],
+      nomeTecnicos: [],
+      ingredientesUtili: [] // .push({}, {})
+
    }
    },
 
@@ -34,8 +45,9 @@
 
    async registrarProducao() {
       // RegistrarProducao()
-      console.log(this.nomeProduto)
-   }
+      console.log(this.nomeProd_Criado)
+   },
+
 
    },
    mounted() {
@@ -199,15 +211,15 @@
                                              <ul class="dropdown-menu ">
                                                  <div class="form-check">
                                                     
-                                                 <li><input class="form-check-input" type="checkbox" value="queijo" v-model="nomeProduto" id="flexCheckDefault"></li>
+                                                 <li><input class="form-check-input" type="checkbox" value="queijo" v-model="nomeProd_Criado" id="flexCheckDefault"></li>
                                                  <label class="form-check-label" for="flexCheckChecked">queijo</label>
                                                  </div>
                                                  <div class="form-check">
-                                                 <li><input class="form-check-input" type="checkbox" value="bolo" v-model="nomeProduto" id="flexCheckDefault"> </li>
+                                                 <li><input class="form-check-input" type="checkbox" value="bolo" v-model="nomeProd_Criado" id="flexCheckDefault"> </li>
                                                  <label class="form-check-label" for="flexCheckChecked">bolo</label>
                                              </div>
                                               <div class="form-check">
-                                                 <li><input class="form-check-input" type="checkbox" value="doce" v-model="nomeProduto" id="flexCheckDefault"></li>
+                                                 <li><input class="form-check-input" type="checkbox" value="doce" v-model="nomeProd_Criado" id="flexCheckDefault"></li>
                                                  <label class="form-check-label" for="flexCheckChecked">doce</label>
                                              </div>
                                              </ul>

@@ -135,11 +135,5 @@ insert into producao (n_producao, data_inicio, data_fim, id_produto, objetivo) v
 insert into ingrediente_produto (id_ingrediente, id_producao, quantidade) values 
 (1, 1, 8);
 
--- select * from ingredientes;
 
--- select id from producao where n_producao = "1/2022";
-
-select
-(select id from auxiliares where nome = "Allan")
-from auxiliares;
 

@@ -71,7 +71,11 @@ const PegarIngredientes = async (req, res) => {
 const CadastrarProducao = async (req, res) => {
     try {
         const dados = await req.body
+
         if (dados.nome == "") {
+            return res.status(200).json(false)
+        }
+        else if (dados.n_producao == "") {
             return res.status(200).json(false)
         }
 
@@ -90,33 +94,29 @@ const CadastrarProducao = async (req, res) => {
             return res.status(200).json(false)
 
         }
-        else if (dados.id_auxiliar == "") {
+        else if (dados.nomeAuxiliares == "") {
             return res.status(200).json(false)
 
         }
-        else if (dados.id_produto == "") {
+        else if (dados.nome_tecnicos == "") {
             return res.status(200).json(false)
 
         }
-        else if (dados.id_tecnico == "") {
+       
+        
+        else if (dados.ingredientesUtili == "") {
             return res.status(200).json(false)
 
         }
-        else if (dados.id_ingrediente == "") {
-            return res.status(200).json(false)
-
-        }
-        else if (dados.quantidade == "") {
-            return res.status(200).json(false)
-        }
-
+        
         else {
             // cadastrar no banco
-            // return res.status(200).json({olhai: dados})
-            // Operacoes.CadastrarProducao(dados.nome, dados.data_inicio, dados.data_fim,
-            //     dados.quantidade_produzida, dados.objetivo, dados.id_auxiliar,
-            //     dados.id_produto, dados.id_tecnico, dados.id_ingrediente, dados.quantidade)
-            //     return res.status(200).json({msg: "dados cadastrados"})
+                await Operacoes.CadastrarProducao(dados.nomeProd_Criado, dados.n_producao, 
+                dados.data_inicio, dados.data_fim,
+                dados.regristro_ocorrencia, dados.objetivo, dados.nomeAuxiliares,
+                dados.nome_tecnicos, dados.ingredientesUtili);
+
+                return res.status(200).json({msg: "dados cadastrados"})
         }
        
 
