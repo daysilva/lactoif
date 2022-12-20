@@ -29,19 +29,15 @@ const PegarIngrediente = async () => {
   return ing
 }
 
-const RegistrarProducao = async (produto_criado, n_producao, data_inicio, data_fim, 
-  regristro_ocorrencia, objetivo, nomeAuxiliar, nome_tecnico, ingredientesUtili) => {
+const PegarProdutos = async () => {
+  const prod = await Api.get('dados/produtos')
+  return prod
+}
+
+const RegistrarProducao = async (dados) => {
   const inserir = await Api.post('dados/registrar_producao', {
     
-    nomeProd_Criado: produto_criado, // [{nome quant} {nome quant}]
-    n_producao: n_producao,  // ex. 1/2022
-    data_inicio: data_inicio,
-    data_fim: data_fim,
-    regristro_ocorrencia: regristro_ocorrencia, // pode ser null
-    objetivo: objetivo, // talvez possa ser null
-    nomeAuxiliares: nomeAuxiliar, // ["Allan", "Denys", "Paulo"]
-    nome_tecnicos: nome_tecnico, // ["Ramon", "Mayomir", "Paulo"]
-    ingredientesUtili: ingredientesUtili // [{nome quant}, {nome quant}]
+    
   })
 }
 
@@ -50,5 +46,6 @@ export {
    PegarTecnicos,
    PegarAuxiliar,
    PegarIngrediente,
+   PegarProdutos,
    RegistrarProducao
 }

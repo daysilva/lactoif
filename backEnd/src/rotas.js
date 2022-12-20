@@ -27,6 +27,10 @@ router.get('/dados/auxiliares', jsonParser, controler.pegarAuxiliares)
 router.get('/dados/ingredientes', jsonParser, controler.PegarIngredientes)
 
 
+// mandar id e nome dos produtos
+router.get('/dados/produtos', jsonParser, controler.PegarProdutos)
+
+
 // registrar a producao
 router.post('/dados/registrar_producao', jsonParser, controler.CadastrarProducao)
 

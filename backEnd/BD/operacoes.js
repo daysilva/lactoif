@@ -24,6 +24,10 @@ const PegarIngredientes = async () => {
     return ingrediente[0]
 }
 
+const PegarProdutos = async () => {
+    const produtos = await connection.execute("SELECT DISTINCT(nome_produto), id FROM produto_criado;")
+    return produtos[0]
+}
  
 
 // operacoes de insert para um gegistro de producao
@@ -241,6 +245,7 @@ module.exports = {
     pegarUsuario,
     PegarTecnicos,
     PegarAuxiliares,
+    PegarProdutos,
     PegarIngredientes,
     CadastrarProducao
 }

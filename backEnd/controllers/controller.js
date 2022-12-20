@@ -66,6 +66,19 @@ const PegarIngredientes = async (req, res) => {
     }
 }
 
+
+// pegar o nome dos produtos que são feitos
+const PegarProdutos = async (req, res) => {
+    try {
+        const dados = await Operacoes.PegarProdutos()
+        return res.status(200).json(dados)
+    } catch (erro) {
+        return res.json({msg: "falha na requisicao " + erro})
+
+    }
+
+}
+
  
 // pegar os valores que o usuario marcou no registro e inserir no banco
 const CadastrarProducao = async (req, res) => {
@@ -134,5 +147,6 @@ module.exports = {
     pegarTecnicos,
     pegarAuxiliares,
     PegarIngredientes,
+    PegarProdutos,
     CadastrarProducao
 }

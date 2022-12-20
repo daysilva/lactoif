@@ -1,5 +1,5 @@
 <script>
-   import { PegarTecnicos, PegarAuxiliar, PegarIngrediente, RegistrarProducao } from '../axios';
+   import { PegarTecnicos, PegarAuxiliar, PegarIngrediente, PegarProdutos, RegistrarProducao } from '../axios';
 
    export default {
    name: "RegistrarProdução",
@@ -8,6 +8,7 @@
       nomeTec: "",
       nomeAuxi: "",
       nomeIngred: "",
+      nomeProdutos: "",
 
 
       // variaveis que vao pegar os valores selecionados e mandar para
@@ -23,6 +24,7 @@
       nomeAuxiliares: [],
       nomeTecnicos: [],
       ingredientesUtili: [] // .push({}, {})
+
 
    }
    },
@@ -43,17 +45,45 @@
       this.nomeIngred = ingre.data
    },
 
+   async exibirProdutos() {
+      // vai vir o nome e id
+      const prod = await PegarProdutos()
+      this.nomeProdutos = prod.data
+   },
+
+
+//    produto_criado, n_producao, data_inicio, data_fim, 
+//   regristro_ocorrencia, objetivo, nomeAuxiliar, nome_tecnico, ingredientesUtili
+
    async registrarProducao() {
-      // RegistrarProducao()
+      // const dados = {
+         
+      //    nomeProd_Criado: this.nomeProd_Criado, // [{nome quant} {nome quant}]
+      //    n_producao: this.n_producao,  // ex. 1/2022
+      //    data_inicio: this.data_inicio,
+      //    data_fim: this.data_fim,
+      //    regristro_ocorrencia: this.regist_ocorren, // pode ser null
+      //    objetivo: this.objetivo, // talvez possa ser null
+      //    nomeAuxiliares: this.nomeAuxiliares, // ["Allan", "Denys", "Paulo"]
+      //    nome_tecnicos: this.nomeTecnicos, // ["Ramon", "Mayomir", "Paulo"]
+      //    ingredientesUtili: this.ingredientesUtili // [{nome quant}, {nome quant}]
+
+      // }
       console.log(this.nomeProd_Criado)
    },
 
+   // toda vez que alguem selecinonar o nome de um produto
+   // essa fucao pegará o valor e dará um push em nomeProd_Criado
+   Push_nomeProd_Criado(a, b) {
+      console.log(a, b)
+   }
 
    },
    mounted() {
       this.exibirTecnicos()
       this.exibirAuxiliares()
       this.exibirIngredientes()
+      this.exibirProdutos()
    },
    }
 
@@ -91,7 +121,7 @@
                                           :key="n.nome"
                                            class="form-check">
                                           <li><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></li>
-                                          <label class="form-check-label" for="flexCheckChecked">{{n.nome}}</label>
+                                          <label class="form-check-label" for="flexCheckChecked">{{ n.nome }}</label>
                                           </div>
                                     </ul>
                            
@@ -205,25 +235,25 @@
                                      <label for="text" class="col-md-2 "> Produto(os) </label> 
                                  <div class="col-md-6">
                                      
-                                             <button class="btn btn-secondary dropdown-toggle col-md-12  ab" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                 
-                                             </button>
-                                             <ul class="dropdown-menu ">
-                                                 <div class="form-check">
-                                                    
-                                                 <li><input class="form-check-input" type="checkbox" value="queijo" v-model="nomeProd_Criado" id="flexCheckDefault"></li>
-                                                 <label class="form-check-label" for="flexCheckChecked">queijo</label>
-                                                 </div>
-                                                 <div class="form-check">
-                                                 <li><input class="form-check-input" type="checkbox" value="bolo" v-model="nomeProd_Criado" id="flexCheckDefault"> </li>
-                                                 <label class="form-check-label" for="flexCheckChecked">bolo</label>
-                                             </div>
-                                              <div class="form-check">
-                                                 <li><input class="form-check-input" type="checkbox" value="doce" v-model="nomeProd_Criado" id="flexCheckDefault"></li>
-                                                 <label class="form-check-label" for="flexCheckChecked">doce</label>
-                                             </div>
-                                             </ul>
-                                    
+                                    <button class="btn btn-secondary dropdown-toggle col-md-12  ab" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                          
+                                    </button>
+                                    <ul class="dropdown-menu ">
+                                          <div
+                                          v-for="n in nomeProdutos"
+                                       :key="n.id" 
+                                          class="form-check">
+               
+                                          <li><input class="form-check-input" type="checkbox" :value="n.nome_produto" 
+                                          :name="n.nome_produto" :id="n.id" v-model="nomeQuant">
+                                       </li>
+                                          
+                                          <label class="form-check-label" :for="n.nome_produto">{{ n.nome_produto }}</label>
+                                          <input class="w-25" style="margin-left: 1rem;" type="number" min="0" v-model="nomeQuant">
+                                       </div>
+                                          
+                                    </ul>
+                           
                                </div>
                                  </div>
                                </div>
