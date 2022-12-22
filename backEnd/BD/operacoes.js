@@ -1,5 +1,5 @@
 const connection = require('./conexao')
-
+ 
 
 const pegarUsuario = async (nome, senha) => {
     const usuario = await connection.execute( 'SELECT * FROM usuarios WHERE nome = ? AND senha = ?' , 
@@ -25,65 +25,66 @@ const PegarIngredientes = async () => {
 }
 
 const PegarProdutos = async () => {
-    const produtos = await connection.execute("SELECT DISTINCT(nome_produto), id FROM produto_criado;")
+    const produtos = await connection.execute("SELECT DISTINCT(nome_produto), id FROM nome_produto")
     return produtos[0]
 }
  
 
 // operacoes de insert para um gegistro de producao
 
-const CadastrarProduto_criado = async (produto_criado) => {
-    let values = []
-
-    for (let i = 0; i < produto_criado.length; i++) {
-        values.push([produto_criado[i].nome_produto, produto_criado[i].quantidade_produzida])
-    }
-
-    try {
-        var sql = "INSERT INTO produto_criado (nome_produto, quantidade_produzida) VALUES ?"
-       
-        const a = await connection.query(sql, [values])
-       } catch (e) {
-
-        return console.log("colunas duplicadas " + e)
-       }
-}
-
-
 // OBS nome_produto e produto_criado são a mesma coisa
 // está percorrendo um array que tem objetos
-const CadastrarProduto = async (n_producao, data_inicio, data_fim, nome_produto, regristro_ocorrencia, objetivo) => {
+const CadastrarProduto = async (n_producao, data_inicio, data_fim, regristro_ocorrencia, objetivo) => {
 
-    // vai pegar todos os ids e depois filtrar dentro de um if para mandar so quem foi selecionado pelo nome
-    const id_produto = `select id, nome_produto from produto_criado`
-    const id_prod = await connection.execute(id_produto)
-
-    let values = []
-
-    for (let i = 0; i < nome_produto.length; i++) {
-
-        for (let x = 0; x < id_prod[0].length; x++) {
-
-            let nome = nome_produto[i].nome_produto
-            let nomePro = id_prod[0][x].nome_produto
-           
-            if (nomePro == nome) {
-                values.push([n_producao, data_inicio, data_fim, id_prod[0][x].id, regristro_ocorrencia, objetivo])
-            }
-            
-        }
-       
-    }
-
+    
     try {
-        const sql = 'INSERT INTO producao (n_producao, data_inicio, data_fim, id_produto, regristro_ocorrencia, objetivo) VALUES ?'
-        const a = await connection.query(sql, [values])
+        const a = "insert into producao (n_producao, data_inicio, data_fim, regristro_ocorrencia, objetivo) values (?, ?, ?, ?, ?)"
+        const cadastrar = await connection.execute(a,
+        [n_producao, data_inicio, data_fim, regristro_ocorrencia, objetivo])    
+
 
     } catch (e) {
         console.log("erro ao cadastrar producao " + e)
     }
 
 
+}
+
+
+const CadastrarProduto_producao = async (n_producao, produto_criado) => {
+
+    let values = []
+
+    const idProducao = `select id from producao where n_producao = "${n_producao}"`
+   const id_prod = await connection.execute(idProducao)
+
+   // vai pegar todos os ids e depois filtrar dentro de um if para mandar so quem foi selecionado pelo nome
+   const id_nomeProduto = `select id, nome_produto from nome_produto`
+   const id_nomeProd = await connection.execute(id_nomeProduto)
+
+
+    for (let i = 0; i < produto_criado.length; i++) {  // percorre pegando os nomes vindo do fronte
+        // if produto_criado.nome == id_nomeProd[0][x].nome
+        for (let x = 0; x < id_nomeProd[0].length; x++) {  // percorre os nomes vindo do banco
+            
+            let nomeProdFront = produto_criado[i].nome_produto
+            let nomeProdBanco = id_nomeProd[0][x].nome_produto
+
+            if (nomeProdFront == nomeProdBanco) {
+
+                values.push([id_prod[0][0].id, id_nomeProd[0][x].id, produto_criado[i].quantidade_produzida])
+            }
+        }
+    }
+
+    try {
+        var sql = "INSERT INTO produto_producao (id_producao, id_produto, quantidade_produzida) VALUES ?"
+       
+        const a = await connection.query(sql, [values])
+       } catch (e) {
+
+        return console.log("colunas duplicadas " + e)
+       }
 }
 
 
@@ -232,8 +233,8 @@ const CadastrarIngrediente = async (ingredientesUtili, n_producao) => {
 const CadastrarProducao = async (produto_criado, n_producao, data_inicio, data_fim, regristro_ocorrencia, objetivo,
     nomeAuxiliar, nome_tecnico, ingredientesUtili) => {
 
-    await CadastrarProduto_criado(produto_criado)
     await CadastrarProduto(n_producao, data_inicio, data_fim, produto_criado, regristro_ocorrencia, objetivo)
+    await CadastrarProduto_producao(n_producao, produto_criado)
     await CadastrarAuxiliar_producao(nomeAuxiliar, n_producao)
     await CadastrarTecnico_producao(nome_tecnico, n_producao)
     await CadastrarIngrediente(ingredientesUtili, n_producao)

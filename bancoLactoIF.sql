@@ -34,10 +34,9 @@ quantidade_estoque numeric,
 primary key(id)
 );
 
-create table produto_criado (
+create table nome_produto (
 id integer auto_increment,
 nome_produto varchar(25),
-quantidade_produzida numeric,
 primary key (id)
 );
 
@@ -46,12 +45,20 @@ id integer auto_increment,
 n_producao varchar (20),
  data_inicio datetime,
  data_fim  datetime,
- id_produto integer,
-	foreign key (id_produto)
-    references produto_criado(id),
  regristro_ocorrencia varchar(3000) null,
  objetivo  varcharacter(3000),
  primary key(id)
+);
+
+create table produto_producao (
+id_producao integer,
+	foreign key (id_producao)
+		references producao (id),
+id_produto integer,
+	foreign key (id_produto)
+		references nome_produto (id),
+quantidade_produzida numeric,
+primary key (id_producao, id_produto)
 );
 
 create table auxiliar_produto(
@@ -117,17 +124,22 @@ insert into ingredientes (nome, quantidade_estoque) values
 ("farinha", 5),
 ("nutela", 3);
 
-insert into produto_criado (nome_produto, quantidade_produzida) values
-("queijo", 2),
- ("bolo",4);
+insert into nome_produto (nome_produto) values
+("queijo"),
+("iorgute"),
+ ("bolo"),
+ ("doce");
 
-insert into producao (n_producao, data_inicio, data_fim, id_produto, objetivo) values
-("1/2022", now(), '2022-12-31 23:59:59', 1, "aula"),
-("1/2022", now(), '2022-12-31 23:59:59', 2, "aula");
+insert into producao (n_producao, data_inicio, data_fim, objetivo) values
+("1/2022", now(), '2022-12-31 23:59:59', "aula");
+
+insert into produto_producao (id_producao, id_produto, quantidade_produzida) values
+(1, 1, 3),
+(1, 2, 1);
 
  insert into auxiliar_produto (id_auxiliar, id_producao) values
  (1, 1),
- (1, 2);
+ (2, 1);
 
  insert into tecnico_produto (id_tecnico, id_producao) values
  (1, 1);
