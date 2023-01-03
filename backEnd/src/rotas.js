@@ -35,6 +35,10 @@ router.get('/dados/produtos', jsonParser, controler.PegarProdutos)
 router.post('/dados/registrar_producao', jsonParser, controler.CadastrarProducao)
 
 
+// exibir uma producao que acabou de ser registrada
+router.get('/dados/ultimo_registro', jsonParser, controler.ultimoRegistro)
+
+
 router.get('/ola', (req, res) => {
     res.status(200).send("ooooiiiiaaaa")
 })

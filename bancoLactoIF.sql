@@ -31,14 +31,18 @@ create table ingredientes (
 id integer auto_increment,
 nome varchar(50), 
 quantidade_estoque numeric,
+medicao varchar(10),
 primary key(id)
 );
 
 create table nome_produto (
 id integer auto_increment,
+id_secundario integer,
 nome_produto varchar(25),
+medicao varchar(10),
 primary key (id)
 );
+
 
 create table producao(
 id integer auto_increment,
@@ -118,20 +122,21 @@ insert into auxiliares (nome) values
 ("Ricardo"),
 ("Denys");
 
-insert into ingredientes (nome, quantidade_estoque) values
-("açucar", 10),
-("leite", 2),
-("farinha", 5),
-("nutela", 3);
+insert into ingredientes (nome, quantidade_estoque, medicao) values
+("açucar", 10, "Kg"),
+("leite", 2, "L"),
+("farinha", 5, "Kg"),
+("nutela", 3, "Kg");
 
-insert into nome_produto (nome_produto) values
-("queijo"),
-("iorgute"),
- ("bolo"),
- ("doce");
+insert into nome_produto (nome_produto, medicao) values
+("queijo", "Kg"),
+("iorgute", "L"),
+ ("bolo", "unidade"),
+ ("doce", "g");
 
 insert into producao (n_producao, data_inicio, data_fim, objetivo) values
 ("1/2022", now(), '2022-12-31 23:59:59', "aula");
+
 
 insert into produto_producao (id_producao, id_produto, quantidade_produzida) values
 (1, 1, 3),

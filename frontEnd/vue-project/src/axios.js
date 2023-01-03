@@ -34,12 +34,19 @@ const PegarProdutos = async () => {
   return prod
 }
 
+
+// tem que retornar alguma coisa como resposta pra saber
 const RegistrarProducao = async (dados) => {
-  const inserir = await Api.post('dados/registrar_producao', {
-    
-    
-  })
+  const inserir = await Api.post('dados/registrar_producao', dados)
 }
+
+
+// exibir uma producao que acabou de ser registrada
+const PegarUltimoRegistro = async () => {
+  const dados = await Api.get('dados/ultimo_registro')
+  return dados
+}
+
 
 export {
    ValidarUser,
@@ -47,5 +54,6 @@ export {
    PegarAuxiliar,
    PegarIngrediente,
    PegarProdutos,
-   RegistrarProducao
+   RegistrarProducao,
+   PegarUltimoRegistro
 }

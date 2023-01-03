@@ -1,34 +1,6 @@
-const connection = require('./conexao')
- 
-
-const pegarUsuario = async (nome, senha) => {
-    const usuario = await connection.execute( 'SELECT * FROM usuarios WHERE nome = ? AND senha = ?' , 
-    [nome, senha])
-    return usuario[0][0]
-}
+const connection = require('../conexao')
 
 
-// funcoes para o registro de produção
-const PegarTecnicos = async () => {
-    const tecn = await connection.execute('SELECT nome FROM tecnicos')
-    return tecn[0]
-}
-
-const PegarAuxiliares = async () => {
-    const auxiliar = await connection.execute('SELECT nome FROM auxiliares')
-    return auxiliar[0]
-}
-
-const PegarIngredientes = async () => {
-    const ingrediente = await connection.execute('SELECT nome, quantidade_estoque FROM ingredientes')
-    return ingrediente[0]
-}
-
-const PegarProdutos = async () => {
-    const produtos = await connection.execute("SELECT DISTINCT(nome_produto), id FROM nome_produto")
-    return produtos[0]
-}
- 
 
 // operacoes de insert para um gegistro de producao
 
@@ -228,26 +200,39 @@ const CadastrarIngrediente = async (ingredientesUtili, n_producao) => {
  
 
 
+ //funcao para  nao regristar o mesmo numero de producao
+const pegarNomeproducao = async() => {
+    const nome_producao = 'select n_producao from producao'
+    const n_pro = await connection.execute(nome_producao)
+    
+    return n_pro[0]
+ }
+ const validarNomeProducao = async(n_producao)=> {
+    const pg_producao = await pegarNomeproducao()
+
+    for (let i = 0; i < pg_producao.length; i++) {
+        if (n_producao == pg_producao[i].n_producao){ 
+            return false
+
+        }
+        
+    }
+ }
+
+
 // funcao que contem tododas as funcoes necessarias para cadastrar uma produção
 // cada funcao faz um insert na tabelas que formam um registro de produção como um todo
 const CadastrarProducao = async (produto_criado, n_producao, data_inicio, data_fim, regristro_ocorrencia, objetivo,
     nomeAuxiliar, nome_tecnico, ingredientesUtili) => {
 
-    await CadastrarProduto(n_producao, data_inicio, data_fim, produto_criado, regristro_ocorrencia, objetivo)
+    await CadastrarProduto(n_producao, data_inicio, data_fim, regristro_ocorrencia, objetivo)
     await CadastrarProduto_producao(n_producao, produto_criado)
     await CadastrarAuxiliar_producao(nomeAuxiliar, n_producao)
     await CadastrarTecnico_producao(nome_tecnico, n_producao)
     await CadastrarIngrediente(ingredientesUtili, n_producao)
 }
 
-
-
 module.exports = {
-    pegarUsuario,
-    PegarTecnicos,
-    PegarAuxiliares,
-    PegarProdutos,
-    PegarIngredientes,
-    CadastrarProducao
+    CadastrarProducao,
+    validarNomeProducao
 }
-

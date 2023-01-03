@@ -16,6 +16,9 @@ h2{
    
     
 }
+.ad{
+    border-radius: 100PX 40PX 40PX 40PX;
+}
 
 .ab{
     border-radius: 20PX 20PX 20PX 20PX;
@@ -28,7 +31,7 @@ h2{
     !important;
     border-left:#7c7a7a  solid 0.5px !important;
     text-align: center !important;
-    height: 35px;
+    height: 40px;
     
     border-radius: 0PX 20PX 20PX 0PX !important;
     display: flex;
@@ -39,11 +42,11 @@ h2{
 
 
 .botoes {
-    display: flex;
-    background-color: #349F02;
+    display: flex !important;
+    background-color: #349F02 !important;
     height: 2.3rem;
-    align-items: center;
-   justify-content: center;
+    align-items: center !important;
+   justify-content: center !important;
    font-size: 1.3rem;
 }
 
@@ -55,7 +58,7 @@ h2{
     background-color: #c2d0e45d !important;
 }
 
-button{
+button {
 background-color:#9bbeee5d  !important;
 
 color: black !important;  

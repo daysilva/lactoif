@@ -1,4 +1,8 @@
-const Operacoes = require('../BD/operacoes')
+const Operacoes = require('../BD/operacoesGerais')
+
+const OperacoesRegistrar = require("../BD/operacoes/resgristarProducoes")
+
+const PegarUltimoRegistro = require("../BD/operacoes/ProducaoRegistrada")
 
 
 
@@ -76,7 +80,6 @@ const PegarProdutos = async (req, res) => {
         return res.json({msg: "falha na requisicao " + erro})
 
     }
-
 }
 
  
@@ -85,46 +88,24 @@ const CadastrarProducao = async (req, res) => {
     try {
         const dados = await req.body
 
-        if (dados.nome == "") {
-            return res.status(200).json(false)
-        }
-        else if (dados.n_producao == "") {
+        const validar = await OperacoesRegistrar.validarNomeProducao(dados.n_producao)
+
+        if (dados.nomeProd_Criado[0].nome_produto == "" || dados.nomeProd_Criado[0].quantidade_produzida == 0 
+        || dados.n_producao == "" || dados.data_inicio == "" || 
+        dados.data_fim == "" || dados.objetivo == "" 
+        || dados.nomeAuxiliares == '' || dados.nomeTecnicos == '' 
+        || dados.ingredientesUtili[0].nome_ingrediente == "" || dados.ingredientesUtili[0].quantidade == 0) {
+
             return res.status(200).json(false)
         }
 
-        else if (dados.data_inicio == "") {
+        else if (validar == false ){
             return res.status(200).json(false)
-            
-        }
-        else if (dados.data_fim == "") {
-            return res.status(200).json(false)
-        }
-        else if (dados.quantidade_produzida == "") {
-            return res.status(200).json(false)
-
-        }
-        else if (dados.objetivo == "") {
-            return res.status(200).json(false)
-
-        }
-        else if (dados.nomeAuxiliares == "") {
-            return res.status(200).json(false)
-
-        }
-        else if (dados.nome_tecnicos == "") {
-            return res.status(200).json(false)
-
-        }
-       
-        
-        else if (dados.ingredientesUtili == "") {
-            return res.status(200).json(false)
-
-        }
+       }
         
         else {
             // cadastrar no banco
-                await Operacoes.CadastrarProducao(dados.nomeProd_Criado, dados.n_producao, 
+                await OperacoesRegistrar.CadastrarProducao(dados.nomeProd_Criado, dados.n_producao, 
                 dados.data_inicio, dados.data_fim,
                 dados.regristro_ocorrencia, dados.objetivo, dados.nomeAuxiliares,
                 dados.nome_tecnicos, dados.ingredientesUtili);
@@ -138,9 +119,22 @@ const CadastrarProducao = async (req, res) => {
     }
 }
 
-//  return res.status(200).json({olhai: dados})
 
-// x.forEach((x) => {if (pessoas[x] == "day") {console.log("dayyyyyyy")}})
+
+// retornar os dados da producao que o usuario acabou de registrar
+const ultimoRegistro = async (req, res) => {
+
+   try {
+        const dados = await PegarUltimoRegistro.producaoRegistrada()
+        return res.status(200).json(dados)
+   } 
+
+   catch (erro) {
+        return res.json({msg: "falha na requisicao " + erro})
+   }
+}
+
+
 
 module.exports = {
     fazerlogin,
@@ -148,5 +142,6 @@ module.exports = {
     pegarAuxiliares,
     PegarIngredientes,
     PegarProdutos,
-    CadastrarProducao
+    CadastrarProducao,
+    ultimoRegistro
 }
