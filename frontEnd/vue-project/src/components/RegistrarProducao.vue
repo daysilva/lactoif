@@ -144,6 +144,13 @@ export default {
       this.nomeProd_Criado.push({ nome_produto: "", quantidade_produzida: 0 });
     },
 
+    BotaoDecrementeProdutos() {
+      this.loopProdutos--
+      this.id_input--
+
+      this.nomeProd_Criado.pop()
+    },
+
    BotaoIncrementIngredientes() {
       this.loopIngredientes++
       // um id para os inputs de quantidade para q cada um seja unico
@@ -373,18 +380,16 @@ export default {
               <div class="row">
                 <label for="text" class="col-md-3"> Produto(os) </label>
                 <div class="col-md-6">
-                  <div class="accordion" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item az ab h-1">
-                      <h2 class="accordion-header ab az" id="panelsStayOpen-headingThree">
+                  <div class="az ab border border-0" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
                         <button
-                          class="accordion-button collapsed az ab"
+                          class="btn btn-secondary dropdown-toggle rounded-pill az col-md-12"
                           type="button"
                           data-bs-toggle="collapse"
                           data-bs-target="#panelsStayOpen-collapseThree"
                           aria-expanded="false"
                           aria-controls="panelsStayOpen-collapseThree"
                         ></button>
-                      </h2>
                       <div
                         id="panelsStayOpen-collapseThree"
                         class="accordion-collapse collapse"
@@ -392,11 +397,14 @@ export default {
                       >
                         <!-- cartoes de produto e quatidade -->
 
-                        <div class="accordion-body">
-                          <form v-for="i in loopProdutos" :key="i">
+                        <div class="accordion-body pb-2">
+                          <form class="border border-1 col-md-11 m-2 rounded-top rounded-4 pb-1"
+                          v-for="i in loopProdutos" :key="i">
+
+                          <div class="row">
                             <select
                               v-model="nomeProd_Criado[i - 1].nome_produto"
-                              class="mt-3 form-select"
+                              class="m-3 form-select w-75"
                               aria-label="Default select example"
                             >
                               <option selected>Selecione os produtos</option>
@@ -408,28 +416,50 @@ export default {
                                 {{ item.nome_produto }}
                               </option>
                             </select>
-                            <hr class="mt-4" style="margin-bottom: 0rem" />
-                            <div class="row">
+                          </div>
+                            
+                            <div class="row d-flex align-items-center ps-3 pb-1">
                               <input
                                 type="number"
                                 name="quantProd"
-                                class="w-50 form-control h-1 mt-2"
+                                class="form-control w-25"
                                 :id="id_input"
                                 v-model="nomeProd_Criado[i - 1].quantidade_produzida"
                               />
                               <label class="col-md-6 form-check-label" for="quantProd"
-                                >Quant</label
+                                >Quantidade</label
                               >
                             </div>
                           </form>
 
-                          <button
+                          <!-- <button
                             type="button"
                             class="mt-2 btn btn-primary"
                             @click="BotaoIncrementProdutos"
                           >
                             + adicinar produto
-                          </button>
+                          </button> -->
+                          <div class="ab botoes col-md-4 mt-2 ms-2">
+                            <button
+                              style="font-weight: 700;" 
+                              class="btn w-50 rounded-end rounded-5 border-0 d-flex justify-content-center" 
+                              type="button"
+                              @click="BotaoIncrementProdutos">
+                                +
+                              </button>
+                              <!-- separador -->
+                              <span style="height: 100%; width: 0.2rem; background-color: #11350198;"></span>
+
+                              <button
+                              style="font-weight: 700;" 
+                              class="btn w-50 rounded-start rounded-5 border-0 d-flex justify-content-center" 
+                              type="button"
+                              @click="BotaoDecrementeProdutos"
+                              >
+                              -
+                            </button>
+                          </div>
+
                         </div>
                       </div>
                     </div>

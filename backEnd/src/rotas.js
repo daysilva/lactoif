@@ -39,6 +39,10 @@ router.post('/dados/registrar_producao', jsonParser, controler.CadastrarProducao
 router.get('/dados/ultimo_registro', jsonParser, controler.ultimoRegistro)
 
 
+// exibir o historico
+router.get('/dados/historico/:n_producao', jsonParser, controler.getHistorico)
+
+
 router.get('/ola', (req, res) => {
     res.status(200).send("ooooiiiiaaaa")
 })

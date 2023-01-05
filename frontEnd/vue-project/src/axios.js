@@ -48,6 +48,12 @@ const PegarUltimoRegistro = async () => {
 }
 
 
+const getHistorico = async (n_producao) => {
+  const dados = await Api.get(`dados/historico/${n_producao}`)
+  return dados
+}
+
+
 export {
    ValidarUser,
    PegarTecnicos,
@@ -55,5 +61,6 @@ export {
    PegarIngrediente,
    PegarProdutos,
    RegistrarProducao,
-   PegarUltimoRegistro
+   PegarUltimoRegistro,
+   getHistorico
 }

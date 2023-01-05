@@ -1,37 +1,29 @@
 const connection = require('../conexao')
 
 
-// selects dos ultimos registros feitos no banco   -> A ULTIMA PRODUCAO FEITA
-// nas tabelas 
-// PRODUCAO  x
-// PRODUTO_PRODUCAO  x
-// AUXILIAR_PRODUTO  x
-// TECNICO_PRODUTO x
-// INGREDIENTE_PRODUTO x
 
-
-
-const pegarProducao = async () => {
-    const producao = await connection.execute('SELECT * FROM producao ORDER BY id DESC LIMIT 1')
+const pegarProducao = async (n_producao) => {
+    const producao = await connection.execute('SELECT * FROM producao where n_producao = ?',[n_producao])
     return producao[0][0]
 }
 
 
 
-const PegarProdutosProduzidos = async () => {
-    const id_producao = await pegarProducao()
-
+const PegarProdutosProduzidos = async (n_producao) => {
+    
     const a = `select nome_produto.nome_produto, produto_producao.quantidade_produzida, nome_produto.medicao 
-    from nome_produto join produto_producao on produto_producao.id_produto = nome_produto.id 
-    where produto_producao.id_producao = ?`
-    const produtos = await connection.execute(a, [id_producao.id])
+    from nome_produto join produto_producao on produto_producao.id_produto = nome_produto.id
+    join producao on producao.id = produto_producao.id_producao
+    where producao.n_producao = ?`
+    const produtos = await connection.execute(a, [n_producao])
 
     return produtos[0]
 }
 
 
-const pegarAxiliarProducao = async () => {
-    const id_producao = await pegarProducao()
+const pegarAxiliarProducao = async (n_producao) => {
+    const id_producao = await pegarProducao(n_producao)
+    
     const a = `select auxiliares.nome from auxiliares 
     join auxiliar_produto on auxiliar_produto.id_auxiliar = auxiliares.id 
     where auxiliar_produto.id_producao = ?`
@@ -41,8 +33,9 @@ const pegarAxiliarProducao = async () => {
 }
 
 
-const pegarTecnicoProduto = async () => {
-    const id_producao = await pegarProducao()
+const pegarTecnicoProduto = async (n_producao) => {
+    const id_producao = await pegarProducao(n_producao)
+
     const a = `select tecnicos.nome from tecnicos 
     join tecnico_produto on tecnico_produto.id_tecnico = tecnicos.id 
     where tecnico_produto.id_producao = ?`
@@ -52,8 +45,8 @@ const pegarTecnicoProduto = async () => {
 }
 
 
-const pegarIngredienteProduto = async () => {
-    const id_producao = await pegarProducao()
+const pegarIngredienteProduto = async (n_producao) => {
+    const id_producao = await pegarProducao(n_producao)
     const a = `select ingredientes.nome, ingrediente_produto.quantidade, ingredientes.medicao from ingredientes 
     join ingrediente_produto on ingrediente_produto.id_ingrediente = ingredientes.id 
     where ingrediente_produto.id_producao = ?`
@@ -64,12 +57,12 @@ const pegarIngredienteProduto = async () => {
 
 
 // retornar todas as informacoes que minhas funcoes pegam em um unico objeto
-const producaoRegistrada = async () => {
-    const Producao = await pegarProducao()
-    const produtoProducao = await PegarProdutosProduzidos()
-    const auxiliarProducao = await pegarAxiliarProducao()
-    const tecnicoProducao = await pegarTecnicoProduto()
-    const ingredienteProduto = await pegarIngredienteProduto()
+const getHistorico = async (n_producao) => {
+    const Producao = await pegarProducao(n_producao)
+    const produtoProducao = await PegarProdutosProduzidos(n_producao)
+    const auxiliarProducao = await pegarAxiliarProducao(n_producao)
+    const tecnicoProducao = await pegarTecnicoProduto(n_producao)
+    const ingredienteProduto = await pegarIngredienteProduto(n_producao)
 
     const dados = {
         id: Producao.id,
@@ -87,6 +80,7 @@ const producaoRegistrada = async () => {
 }
 
 
+
 module.exports = {
-    producaoRegistrada
+    getHistorico
 }

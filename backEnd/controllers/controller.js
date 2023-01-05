@@ -4,7 +4,7 @@ const OperacoesRegistrar = require("../BD/operacoes/resgristarProducoes")
 
 const PegarUltimoRegistro = require("../BD/operacoes/ProducaoRegistrada")
 
-
+const PegarHistorico = require("../BD/operacoes/historico")
 
 const fazerlogin = async (req, res) => {
     try {
@@ -134,6 +134,21 @@ const ultimoRegistro = async (req, res) => {
    }
 }
 
+const getHistorico = async (req, res) => {
+
+    try {
+        const n_producao = await req.params
+        const n_prod = n_producao.n_producao.replace("-", "/")
+
+        const dados = await PegarHistorico.getHistorico(n_prod)
+        return res.status(200).json(dados)
+    }
+
+    catch (erro) {
+        return res.json({msg: "falha na requisicao " + erro})
+    }
+}
+
 
 
 module.exports = {
@@ -143,5 +158,6 @@ module.exports = {
     PegarIngredientes,
     PegarProdutos,
     CadastrarProducao,
-    ultimoRegistro
+    ultimoRegistro,
+    getHistorico
 }
