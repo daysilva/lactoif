@@ -134,6 +134,17 @@ const ultimoRegistro = async (req, res) => {
    }
 }
 
+
+const pegarNomeDeProducao = async (req, res) => {
+    try {
+        const dados = await Operacoes.PegarNomesDeProducao()
+        return res.status(200).json(dados)
+    }
+    catch (erro) {
+        return res.json({msg: "falha ao registrar producao" + erro})
+    }
+}
+
 const getHistorico = async (req, res) => {
 
     try {
@@ -159,5 +170,6 @@ module.exports = {
     PegarProdutos,
     CadastrarProducao,
     ultimoRegistro,
+    pegarNomeDeProducao,
     getHistorico
 }

@@ -39,6 +39,9 @@ router.post('/dados/registrar_producao', jsonParser, controler.CadastrarProducao
 router.get('/dados/ultimo_registro', jsonParser, controler.ultimoRegistro)
 
 
+router.get('/dados/n_producao', jsonParser, controler.pegarNomeDeProducao)
+
+
 // exibir o historico
 router.get('/dados/historico/:n_producao', jsonParser, controler.getHistorico)
 

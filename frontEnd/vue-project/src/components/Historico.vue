@@ -26,12 +26,6 @@
 
 
 <template>
-<<<<<<< HEAD
-    <div>
-        sem Registo
-       
-    </div>
-=======
     <div class="row g-3 m-1">
         <div class="col-md-10 ps-4 text-center">
           <h2>HISTORICO</h2>
@@ -45,10 +39,9 @@
           <div class="row">
             
             
-            <button class="btn btn-primary  col-md-3 ab " type="submit">1/2022</button>
+            <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start" type="submit">1/2022</button>
           
           </div>
         </div>
       </div>
->>>>>>> a40eb935c48338b79e3e9391c793ad70e09cf797
 </template>

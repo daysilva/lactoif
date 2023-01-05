@@ -30,12 +30,19 @@ const PegarProdutos = async () => {
 }
  
 
+const PegarNomesDeProducao = async () => {
+    const n_producao = await connection.execute("select n_producao from producao order by n_producao desc")
+    return n_producao[0]
+}
+
+PegarNomesDeProducao()
 
 module.exports = {
     pegarUsuario,
     PegarTecnicos,
     PegarAuxiliares,
     PegarProdutos,
-    PegarIngredientes
+    PegarIngredientes,
+    PegarNomesDeProducao
 }
 
