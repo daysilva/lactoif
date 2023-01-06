@@ -53,6 +53,13 @@ const getHistorico = async (n_producao) => {
   return dados
 }
 
+//exibirhistorico
+
+const pegarNProducao= async() =>{
+  const hist = await Api.get('dados/n_producao')
+  return hist
+}
+
 
 export {
    ValidarUser,
@@ -62,5 +69,6 @@ export {
    PegarProdutos,
    RegistrarProducao,
    PegarUltimoRegistro,
-   getHistorico
+   getHistorico,
+   pegarNProducao
 }
