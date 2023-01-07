@@ -27,10 +27,8 @@
 
     mounted() {
       this.GetHistorico("1-2022")
-<<<<<<< HEAD
-=======
+
       this.pegarnome()
->>>>>>> 84781f3ba59e9d169c5661cb8647a1cfc8095610
     }
    }
 </script>
@@ -58,12 +56,11 @@
             :key= "hi"
             >
 
-<<<<<<< HEAD
+
           <div class="row">
             
+      
             <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start" type="submit">1/2022</button>
-=======
->>>>>>> 84781f3ba59e9d169c5661cb8647a1cfc8095610
           
             
             <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start " type="submit">Produção n° {{hi.n_producao}}</button>
@@ -72,4 +69,5 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
