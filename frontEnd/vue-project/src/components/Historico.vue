@@ -1,8 +1,12 @@
 <script>
-  import { getHistorico, pegarNProducao} from '../axios';
+  import { getHistorico, pegarNProducao } from '../axios';
+  import ExibirHistorico from './ExibirHistorico.vue';
 
    export default {
     name: "Historico",
+    components:{
+      ExibirHistorico
+    },
 
     data() {
       return {
@@ -26,9 +30,10 @@
     },
 
     mounted() {
-      this.GetHistorico("1-2022")
+      this.GetHistorico("8-2022")
 
       this.pegarnome()
+
     }
    }
 </script>
@@ -49,7 +54,7 @@
 
               
          </div>
-          <div class="row  mt-5">
+          
           <div class="row  mt-2"
             
             v-for ="hi in nome"
@@ -58,16 +63,17 @@
 
 
           <div class="row">
-            
-      
-            <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start" type="submit">1/2022</button>
+                   
+
           
-            
-            <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start " type="submit">Produção n° {{hi.n_producao}}</button>
+        
+            <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start " type="button">Produção n° {{hi.n_producao}}</button>
+              <ExibirHistorico />
           </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+
 </template>
