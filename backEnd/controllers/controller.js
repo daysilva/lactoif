@@ -6,6 +6,9 @@ const PegarUltimoRegistro = require("../BD/operacoes/ProducaoRegistrada")
 
 const PegarHistorico = require("../BD/operacoes/historico")
 
+const OperacoesUpdate = require("../BD/operacoes/updateRegistro")
+
+
 const fazerlogin = async (req, res) => {
     try {
         
@@ -161,6 +164,24 @@ const getHistorico = async (req, res) => {
 }
 
 
+const atualizarRegistro  = async (req, res) => {
+    try {
+        const dados = await req.body
+       
+        const n_producao = await req.params
+        const n_prod = n_producao.n_prod.replace("-", "/")
+
+        await OperacoesUpdate.atualiarRegistro(dados, n_prod)
+
+        return res.json({msg: "valores atualizados"})
+
+    } 
+    catch (erro) {
+        return res.json({msg: "falha na requisicao " + erro})
+    }
+}
+
+
 
 module.exports = {
     fazerlogin,
@@ -171,5 +192,6 @@ module.exports = {
     CadastrarProducao,
     ultimoRegistro,
     pegarNomeDeProducao,
-    getHistorico
+    getHistorico,
+    atualizarRegistro
 }

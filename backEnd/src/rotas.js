@@ -46,6 +46,10 @@ router.get('/dados/n_producao', jsonParser, controler.pegarNomeDeProducao)
 router.get('/dados/historico/:n_producao', jsonParser, controler.getHistorico)
 
 
+// atualizar registro
+router.put('/dados/update/:n_prod', jsonParser, controler.atualizarRegistro)
+
+
 router.get('/ola', (req, res) => {
     res.status(200).send("ooooiiiiaaaa")
 })

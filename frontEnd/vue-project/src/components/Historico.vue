@@ -19,7 +19,7 @@
     },
 
     mounted() {
-      this.GetHistorico("2-2023")
+      this.GetHistorico("1-2022")
     }
    }
 </script>
@@ -37,7 +37,6 @@
           </div>
 
           <div class="row">
-            
             
             <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start" type="submit">1/2022</button>
           
