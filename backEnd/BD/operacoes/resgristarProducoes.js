@@ -155,7 +155,7 @@ try {
 
 // nao confundir com pegarIngrediente
 // essa funcao é para cadastrar quanto foi gasto de um produto
-// tambem virá emum array 
+// tambem virá em um array 
 const CadastrarIngrediente = async (ingredientesUtili, n_producao) => {
     // descobrir o id da producao
    const idProducao = `select id from producao where n_producao = "${n_producao}"`
