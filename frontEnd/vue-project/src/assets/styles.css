@@ -72,3 +72,10 @@ text-align-last: right;
 body{
     background-color: rgb(212, 210, 240) !important;
 }
+form img{
+ 
+    height: 2.5rem;
+    position: fixed;
+    right:  2rem;
+    
+} 

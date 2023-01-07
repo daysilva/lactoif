@@ -319,7 +319,11 @@ export default {
                                   :value="item.nome"
                                 >
                                   {{ item.nome}}
+                                  
                                 </option>
+                                
+                              
+                            
                               </select>
                             </div>
 
@@ -399,23 +403,33 @@ export default {
 
                         <div class="accordion-body pb-2">
                           <form class="border border-1 col-md-11 m-2 rounded-top rounded-4 pb-1"
+                        
                           v-for="i in loopProdutos" :key="i">
 
                           <div class="row">
-                            <select
+                            <select 
                               v-model="nomeProd_Criado[i - 1].nome_produto"
                               class="m-3 form-select w-75"
                               aria-label="Default select example"
                             >
+                                
                               <option selected>Selecione os produtos</option>
                               <option
                                 v-for="item in nomeProdutos"
                                 :key="item"
                                 :value="item.nome_produto"
+                                
                               >
                                 {{ item.nome_produto }}
+                              
+                              
+                            
                               </option>
+                               <option>
+                                Outros
+                               </option>
                             </select>
+                            
                           </div>
                             
                             <div class="row d-flex align-items-center ps-3 pb-1">
@@ -430,6 +444,7 @@ export default {
                                 >Quantidade</label
                               >
                             </div>
+                            
                           </form>
 
                           <!-- <button
@@ -458,8 +473,9 @@ export default {
                               >
                               -
                             </button>
+                           
                           </div>
-
+                        
                         </div>
                       </div>
                     </div>

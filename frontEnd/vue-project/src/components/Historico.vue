@@ -40,10 +40,13 @@
         <div class="class">
           <div class="row  mt-3">
             
-            <form class="d-flex  col-md-3   position-absolute  end-0 " role="search">
+              <form class="d-flex  col-md-3   position-absolute  end-0 " role="search">
                <input class="form-control me-2  " type="search" placeholder="Pesquisar" aria-label="Search">
+               <img src="lupa.png">
   
-            </form>
+              </form>
+
+              
          </div>
           <div class="row  mt-5">
           <div class="row  mt-2"
