@@ -1,6 +1,6 @@
 <script>
   import { getHistorico, pegarNProducao } from '../axios';
-  import { ExibirHistorico } from './ExibirHistorico.vue'
+  import  ExibirHistorico  from './ExibirHistorico.vue'
 
    export default {
     name: "Historico",
@@ -11,7 +11,9 @@
     data() {
       return {
         dados: "",
-        nome: ""
+        nome: "",
+        h:false,
+        botao:true,
       }
     },
 
@@ -26,7 +28,15 @@
         const y = await pegarNProducao() 
          this.nome = y.data
         console.log(this.nome)
-      }
+      },
+      AparecerHistorico(){
+        this.h = true
+        this.botao= false
+        
+      },
+      
+      
+      
     },
 
     mounted() {
@@ -54,6 +64,7 @@
 
               
          </div>
+          <div v-if="botao==true">
           
           <div class="row  mt-2"
             
@@ -68,10 +79,17 @@
 
           
             
-            <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start " type="button">Produção n° {{hi.n_producao}}</button>
-              <ExibirHistorico />
+            <button class="btn btn-primary  col-md-3 ab d-flex justify-content-start " type="button " @click='AparecerHistorico' >Produção n° {{hi.n_producao}}</button>
+
+              
           </div>
           </div>
+          </div>
+          <div  v-if="h==true">
+            
+            <ExibirHistorico/>
+          </div>
+          
         </div>
       </div>
     </div>
