@@ -28,7 +28,7 @@
       async pegarnome(){
         const y = await pegarNProducao() 
          this.nome = y.data
-        console.log(this.nome)
+        // console.log(this.nome)
       },
 
       AparecerHistorico(){
@@ -36,18 +36,15 @@
         this.botao = false
         
       },
+
       fechaHistorico() {
-        
       this.h = false
       this.botao = true
-      
       }
     },
 
     mounted() {
-
       this.pegarnome()
-
     }
    }
 </script>
@@ -72,7 +69,7 @@
     </div>
 
       <div class="row mt-4">
-        <div v-if="botao==true">
+        <div v-if="botao == true">
           
           <div class="row mt-2"
             v-for ="hi in nome"
@@ -88,7 +85,7 @@
           </div>
         </div>
 
-        <div>
+        <div v-if="h == true">
           <ExibirHistorico
             @fechar-Historico="fechaHistorico"
             v-if="dados != ''"
