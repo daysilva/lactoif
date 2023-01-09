@@ -33,12 +33,14 @@
 
       AparecerHistorico(){
         this.h = true
-        this.botao= false
+        this.botao = false
         
       },
-      feixarHistorico() {
-        this.h = false
-        this.botao = true
+      fechaHistorico() {
+        
+      this.h = false
+      this.botao = true
+      
       }
     },
 
@@ -88,7 +90,7 @@
 
         <div>
           <ExibirHistorico
-            @feixar-Historico="feixarHistorico"
+            @fechar-Historico="fechaHistorico"
             v-if="dados != ''"
            :dados="dados" />
         </div>

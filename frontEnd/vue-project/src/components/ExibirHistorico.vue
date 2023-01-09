@@ -3,7 +3,7 @@
     <form class="mt-5 border border-3 rounded-4">
       <div class="d-flex justify-content-end">
         <button
-        @click="$emit('feicharHistorico')"
+        @click="$emit('fecharHistorico')"
          type="button" class="btn btn-close btn-outline-primary py-3 px-5" 
          aria-label="Close">
         </button>
@@ -158,7 +158,7 @@
 
     export default {
         name: "ExibirHistorico",
-        emits: ['feicharHistorico'],
+        emits: ['fecharHistorico'],
         props: {
             dados: Object
         },
