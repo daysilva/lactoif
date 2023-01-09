@@ -1,6 +1,13 @@
 <template>
 <div>
-    <form>
+    <form class="mt-5 border border-3 rounded-4">
+      <div class="d-flex justify-content-end">
+        <button
+        @click="$emit('feicharHistorico')"
+         type="button" class="btn btn-close btn-outline-primary py-3 px-5" 
+         aria-label="Close">
+        </button>
+      </div>
       <div class="row g-3 m-1">
       </div>
       <div class="m-5">
@@ -12,7 +19,7 @@
           <div class="ab az col-md-1">
             <div
               class="py-1 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
-              2/2020
+              {{ valores.n_producao }}
             </div>
           </div>
         </div>
@@ -22,7 +29,7 @@
             <div class="ab az col-md-2">
               <div
                 class="py-2 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
-                10/10/2010
+                {{ data_inicio }}
               </div>
             </div>
           </div>
@@ -33,7 +40,7 @@
             <div class="ab az col-md-2">
               <div
                 class="py-2 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
-                11/11/2011
+                {{ data_fim }}
               </div>
             </div>
           </div>
@@ -46,9 +53,11 @@
 
               <div class="col-md-5">
                 <div
+                v-for="ingrd in valores.ingrediente_produto"
+                :key="ingrd.nome"
                  class="input-group">
-                  <div class="form-control az ac">açucar</div>
-                  <span class="input-group-text ax">2 Kg</span>
+                  <div class="form-control az ac">{{ ingrd.nome }}</div>
+                  <span class="input-group-text ax">{{ ingrd.quantidade }} {{ ingrd.medicao }}</span>
                 </div>
   
               </div>
@@ -62,9 +71,11 @@
               <div class="col-md-5">
 
                 <div
+                v-for="prod in valores.produto_producao"
+                :key="prod.nome_produto"
                 class="input-group">
-                  <div class="form-control az ac">bolo</div>
-                  <span class="input-group-text ax">3 unidades</span>
+                  <div class="form-control az ac">{{ prod.nome_produto }}</div>
+                  <span class="input-group-text ax">{{ prod.quantidade_produzida }} {{ prod.medicao }}</span>
                 </div>
                 
               </div>
@@ -82,8 +93,10 @@
               <div class="col-md-4">
 
                 <div
+                v-for="tec in valores.tecnico_producao"
+                :key="tec.nome"
                 class="form-control az ab" aria-label="Recipient's username">
-                  Ramon
+                  {{ tec.nome }}
                 </div>
                 
               </div>
@@ -97,7 +110,9 @@
 
               <div class="col-md-4">
                 <div
-                class="form-control az ab">Andreilson</div>
+                v-for="aux in valores.auxiliar_producao"
+                :key="aux.nome"
+                class="form-control az ab">{{ aux.nome }}</div>
               </div>
             </div>
           </div>
@@ -112,7 +127,9 @@
                   >Objetivo da Atividade</label
                 >
                 <div
-                  class="form-control az tam ab">Aula</div>
+                  class="form-control az tam ab">
+                  {{ valores.objetivo }}
+                </div>
               </div>
             </div>
           </div>
@@ -123,11 +140,10 @@
                 <label for="exampleFormControlTextarea1" class="form-label"
                   >Registro de Ocorrência</label
                 >
-                <textarea
-                  class="form-control az tam ab"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                ></textarea>
+                <div
+                  class="form-control az tam ab">
+                  {{ valores.registro_ocorrencia }}
+                </div>
               </div>
             </div>
           </div>
@@ -138,10 +154,74 @@
 </template>
 
 <script>
+
+
     export default {
         name: "ExibirHistorico",
+        emits: ['feicharHistorico'],
         props: {
             dados: Object
+        },
+
+
+        data() {
+            return {
+              valores: "",
+              data_inicio: "",
+              data_fim: ""
+            }
+        },
+
+        methods: {
+        exibir() {
+          console.log("opa")
+        },
+
+        MontarDados(){
+          if (this.dados != null) {
+            this.valores = this.dados
+            this.configDatas(this.valores.data_inicio, this.valores.data_fim)
+          }
+        },
+
+      async configDatas(dataIni, dataFim) {
+      // 2022-12-31T17:16:00.000Z
+      // ['2022', '12', '31', '17:15']
+
+      const arrayDataIni = []
+      arrayDataIni.push(dataIni.slice(0, 4))
+      arrayDataIni.push(dataIni.slice(5, 7))
+      arrayDataIni.push(dataIni.slice(8, 10))
+      arrayDataIni.push(dataIni.slice(11, 16))
+
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_inicio += arrayDataIni[i] + "/"
+        } else {
+          this.data_inicio += arrayDataIni[i] + " " + arrayDataIni[3]
         }
+      }
+
+      const arrayDataFim = []
+      arrayDataFim.push(dataFim.slice(0, 4))
+      arrayDataFim.push(dataFim.slice(5, 7))
+      arrayDataFim.push(dataFim.slice(8, 10))
+      arrayDataFim.push(dataFim.slice(11, 16))
+ 
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_fim += arrayDataFim[i] + "/"
+        } else {
+          this.data_fim += arrayDataFim[i] + " " + arrayDataIni[3]
+        }
+      }
+  
+    }
+   
+        },
+
+        mounted() {
+         this.MontarDados()
+        },
     }
 </script>

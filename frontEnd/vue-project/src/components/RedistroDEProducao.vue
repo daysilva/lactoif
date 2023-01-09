@@ -189,7 +189,8 @@ export default {
                   >Objetivo da Atividade</label
                 >
                 <div
-                  class="form-control az tam ab">{{ dados.objetivo }}</div>
+                  class="form-control az tam ab">{{ dados.objetivo }}
+                </div>
               </div>
             </div>
           </div>
@@ -200,11 +201,9 @@ export default {
                 <label for="exampleFormControlTextarea1" class="form-label"
                   >Registro de Ocorrência</label
                 >
-                <textarea
-                  class="form-control az tam ab"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                ></textarea>
+                <div
+                  class="form-control az tam ab">{{ dados.registro_ocorrencia }}
+                </div>
               </div>
             </div>
           </div>
