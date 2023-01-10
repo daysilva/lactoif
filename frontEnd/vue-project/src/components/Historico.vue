@@ -38,8 +38,8 @@
       },
       fechaHistorico() {
         
-      this.h = false
-      this.botao = true
+        this.h = false
+        this.botao = true
       
       }
     },
@@ -88,7 +88,8 @@
           </div>
         </div>
 
-        <div>
+        <div v-if="h==true">
+          
           <ExibirHistorico
             @fechar-Historico="fechaHistorico"
             v-if="dados != ''"

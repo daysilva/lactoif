@@ -131,7 +131,7 @@ insert into ingredientes (nome, quantidade_estoque, medicao) values
 insert into nome_produto (nome_produto, medicao) values
 ("queijo", "Kg"),
 ("iorgute", "L"),
- ("bolo", "unidade"),
+ ("bolo", "Und"),
  ("doce", "g");
 
 insert into producao (n_producao, data_inicio, data_fim, objetivo) values

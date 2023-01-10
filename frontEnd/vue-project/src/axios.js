@@ -54,11 +54,16 @@ const getHistorico = async (n_producao) => {
 }
 
 //exibirhistorico
-
-const pegarNProducao= async() =>{
+const pegarNProducao = async() =>{
   const hist = await Api.get('dados/n_producao')
   return hist
 }
+
+// atualizrar estoque
+const atualizarEstoque = async (nome, quantidade) => {
+  const update = await Api.put(`dados/update/estoque/${nome}/${quantidade}`)
+}
+
 
 
 export {
@@ -70,5 +75,6 @@ export {
    RegistrarProducao,
    PegarUltimoRegistro,
    getHistorico,
-   pegarNProducao
+   pegarNProducao,
+   atualizarEstoque
 }
