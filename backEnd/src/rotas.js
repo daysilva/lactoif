@@ -50,6 +50,10 @@ router.get('/dados/historico/:n_producao', jsonParser, controler.getHistorico)
 router.put('/dados/update/:n_prod', jsonParser, controler.atualizarRegistro)
 
 
+// atualizar o estoque
+router.put('/dados/update/estoque/:nome_ingrediente/:quantidade', jsonParser, controler.AtualizarEstoque)
+
+
 router.get('/ola', (req, res) => {
     res.status(200).send("ooooiiiiaaaa")
 })

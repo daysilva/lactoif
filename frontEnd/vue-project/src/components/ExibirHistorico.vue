@@ -19,7 +19,7 @@
           <div class="ab az col-md-1">
             <div
               class="py-1 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
-              {{ valores.n_producao }}
+              {{ dados.n_producao }}
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
 
               <div class="col-md-5">
                 <div
-                v-for="ingrd in valores.ingrediente_produto"
+                v-for="ingrd in dados.ingrediente_produto"
                 :key="ingrd.nome"
                  class="input-group">
                   <div class="form-control az ac">{{ ingrd.nome }}</div>
@@ -71,7 +71,7 @@
               <div class="col-md-5">
 
                 <div
-                v-for="prod in valores.produto_producao"
+                v-for="prod in dados.produto_producao"
                 :key="prod.nome_produto"
                 class="input-group">
                   <div class="form-control az ac">{{ prod.nome_produto }}</div>
@@ -93,7 +93,7 @@
               <div class="col-md-4">
 
                 <div
-                v-for="tec in valores.tecnico_producao"
+                v-for="tec in dados.tecnico_producao"
                 :key="tec.nome"
                 class="form-control az ab" aria-label="Recipient's username">
                   {{ tec.nome }}
@@ -110,7 +110,7 @@
 
               <div class="col-md-4">
                 <div
-                v-for="aux in valores.auxiliar_producao"
+                v-for="aux in dados.auxiliar_producao"
                 :key="aux.nome"
                 class="form-control az ab">{{ aux.nome }}</div>
               </div>
@@ -128,7 +128,7 @@
                 >
                 <div
                   class="form-control az tam ab">
-                  {{ valores.objetivo }}
+                  {{ dados.objetivo }}
                 </div>
               </div>
             </div>
@@ -142,7 +142,7 @@
                 >
                 <div
                   class="form-control az tam ab">
-                  {{ valores.registro_ocorrencia }}
+                  {{ dados.registro_ocorrencia }}
                 </div>
               </div>
             </div>
@@ -183,8 +183,7 @@
 
         MontarDados(){
           if (this.dados != null) {
-            this.valores = this.dados
-            this.configDatas(this.valores.data_inicio, this.valores.data_fim)
+            this.configDatas(this.dados.data_inicio, this.dados.data_fim)
           }
         },
 

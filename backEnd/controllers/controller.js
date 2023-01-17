@@ -8,6 +8,8 @@ const PegarHistorico = require("../BD/operacoes/historico")
 
 const OperacoesUpdate = require("../BD/operacoes/updateRegistro")
 
+const UpdateEstoque = require("../BD/operacoes/updateEstoque")
+
 
 const fazerlogin = async (req, res) => {
     try {
@@ -182,6 +184,19 @@ const atualizarRegistro  = async (req, res) => {
 }
 
 
+const AtualizarEstoque = async (req, res) => {
+    try {
+        const dados = await req.params
+
+        await UpdateEstoque.UpdateEstoque(dados.nome_ingrediente, dados.quantidade)
+        return res.status(200).json({msg: "dados atualizados"})
+
+    }
+    catch (erro) {
+        return res.json({msg: "falha na requisicao " + erro})
+    }
+}
+
 
 module.exports = {
     fazerlogin,
@@ -193,5 +208,6 @@ module.exports = {
     ultimoRegistro,
     pegarNomeDeProducao,
     getHistorico,
-    atualizarRegistro
+    atualizarRegistro,
+    AtualizarEstoque
 }
