@@ -14,7 +14,7 @@ export default {
       data_fim: ""
     }
   },
-
+ 
   methods: {
     async pegarUltimoRegistro() {
       const x = await PegarUltimoRegistro()

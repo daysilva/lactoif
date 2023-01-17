@@ -149,6 +149,10 @@
           </div>
         </div>
       </div>
+      
+      <button
+      @click="$emit('updateRegistro')"
+       type="button">Atualizar</button>
     </form>
   </div>
 </template>
@@ -158,7 +162,7 @@
 
     export default {
         name: "ExibirHistorico",
-        emits: ['fecharHistorico'],
+        emits: ['fecharHistorico', "updateRegistro"],
         props: {
             dados: Object
         },
