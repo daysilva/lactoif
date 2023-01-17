@@ -34,7 +34,7 @@ const CadastrarProduto_producao = async (n_producao, produto_criado) => {
    const id_nomeProduto = `select id, nome_produto from nome_produto`
    const id_nomeProd = await connection.execute(id_nomeProduto)
 
-
+ 
     for (let i = 0; i < produto_criado.length; i++) {  // percorre pegando os nomes vindo do fronte
         // if produto_criado.nome == id_nomeProd[0][x].nome
         for (let x = 0; x < id_nomeProd[0].length; x++) {  // percorre os nomes vindo do banco

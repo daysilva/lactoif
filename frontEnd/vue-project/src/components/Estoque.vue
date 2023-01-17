@@ -27,13 +27,15 @@
             <div class="az ab border border-0" id="accordionPanelsStayOpenExample">
                   <div class="accordion-item">
                     <button
-                        class="btn btn-secondary dropdown-toggle rounded-pill az col-md-12"
+                    
+                        class="btn btn-secondary dropdown-toggle rounded-pill az col-md-12 " 
                         type="button"
+                        
                         data-bs-toggle="collapse"
                         data-bs-target="#ingredientes-collapseThree"
                         aria-expanded="false"
                         aria-controls="ingredientes-collapseThree"
-                      ></button>
+                      > </button>
                     <div
                       id="ingredientes-collapseThree"
                       class="accordion-collapse collapse"
