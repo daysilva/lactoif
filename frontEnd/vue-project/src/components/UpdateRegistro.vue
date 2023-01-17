@@ -12,7 +12,7 @@
           <div class="row">
             <label for="text" class="col-md-4">n° de produçao</label>
             <div class="col-md-3">
-              <input type="text" class="form-control az h-1 ab" id="text" v-model="n_producao" />
+              <input type="text" class="form-control az h-1 ab" id="text" v-model="dados.n_producao" />
             </div>
           </div>
           <div class="row mt-5">
@@ -25,7 +25,7 @@
                   aria-expanded="false"
                 ></button>
                 <ul class="dropdown-menu">
-                  <div v-for="n in nomeTec" :key="n.nome" class="form-check">
+                  <div v-for="n in dados.tecnico_producao" :key="n.nome" class="form-check">
                     <li>
                       <input
                         class="form-check-input"
@@ -341,15 +341,61 @@
 <script>
    export default {
     name: "UpdateRegistro",
+    props: {
+      dados: Object
+    },
 
     data() {
         return {
-            dados: ""
+            // dados: ""
         }
     },
-
     methods: {
+      MontarDados(){
+          if (this.dados != null) {
+            this.configDatas(this.dados.data_inicio, this.dados.data_fim)
+            console.log(">>>", this.dados)
+          }
+        },
 
+      async configDatas(dataIni, dataFim) {
+
+      // 2022-12-31T17:16:00.000Z
+      // ['2022', '12', '31', '17:15']
+
+      const arrayDataIni = []
+      arrayDataIni.push(dataIni.slice(0, 4))
+      arrayDataIni.push(dataIni.slice(5, 7))
+      arrayDataIni.push(dataIni.slice(8, 10))
+      arrayDataIni.push(dataIni.slice(11, 16))
+
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_inicio += arrayDataIni[i] + "/"
+        } else {
+          this.data_inicio += arrayDataIni[i] + " " + arrayDataIni[3]
+        }
+      }
+
+      const arrayDataFim = []
+      arrayDataFim.push(dataFim.slice(0, 4))
+      arrayDataFim.push(dataFim.slice(5, 7))
+      arrayDataFim.push(dataFim.slice(8, 10))
+      arrayDataFim.push(dataFim.slice(11, 16))
+ 
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_fim += arrayDataFim[i] + "/"
+        } else {
+          this.data_fim += arrayDataFim[i] + " " + arrayDataIni[3]
+        }
+      }
+  
     }
+    },
+
+    mounted() {
+         this.MontarDados()
+        }
    }
 </script>

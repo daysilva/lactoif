@@ -57,6 +57,7 @@
         this.botao = false
         this.update_registro = true
         console.log("foi")
+        console.log(this.update_registro)
       }
     },
 
@@ -111,11 +112,10 @@
             v-if="dados != ''"
            :dados="dados" />
         </div>
-
-        <div v-if="update_registro == true">
-          <UpdateRegistro />
-        </div>
       </div>
+      <div v-if="update_registro == true">
+          <UpdateRegistro :dados="dados" />
+        </div>
     </div>
     </div>
 </template>
