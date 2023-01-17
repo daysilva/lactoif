@@ -1,11 +1,13 @@
 <script>
   import { getHistorico, pegarNProducao } from '../axios';
   import ExibirHistorico from './ExibirHistorico.vue'
+  import UpdateRegistro from './UpdateRegistro.vue';
 
    export default {
     name: "Historico",
     components:{
-      ExibirHistorico
+      ExibirHistorico,
+      UpdateRegistro
     },
 
     data() {
@@ -14,6 +16,7 @@
         nome: "",
         h: false,
         botao: true,
+        update_registro: false
       }
     },
 
@@ -40,6 +43,16 @@
       fechaHistorico() {
       this.h = false
       this.botao = true
+      },
+
+      // essa funcao fecha a tela de historico e abre a de atualização
+      // deve ser chamada através de um emit vindo da tela de historico
+      // no momento em que o usuario clicar no botão "Atualizar"
+      ExibirTela_update() {
+        this.h = false
+        this.botao = false
+        this.update_registro = true
+        console.log("foi")
       }
     },
 
@@ -88,8 +101,13 @@
         <div v-if="h == true">
           <ExibirHistorico
             @fechar-Historico="fechaHistorico"
+            @update-Registro="ExibirTela_update"
             v-if="dados != ''"
            :dados="dados" />
+        </div>
+
+        <div v-if="update_registro == true">
+          <UpdateRegistro />
         </div>
       </div>
     </div>
