@@ -1,3 +1,103 @@
+<script>
+  import {
+  PegarTecnicos,
+  PegarAuxiliar,
+  PegarIngrediente,
+  PegarProdutos,
+  RegistrarProducao,
+} from "../axios";
+
+   export default {
+    name: "UpdateRegistro",
+    props: {
+      dados: Object
+    },
+
+    data() {
+        return {
+          nomeTec: "",
+          nomeAuxi: "",
+          nomeIngred: "",
+          nomeProdutos: "",
+
+          data_inicio: "",
+          data_fim: "",
+
+          exibe_data_inicio: true,
+          exibe_confg_data_inicio: false,
+          exibe_tecnicos: true,
+          exibe_confg_tecnicos: false
+
+        }
+    },
+    methods: {
+      MontarDados(){
+          if (this.dados != null) {
+            this.configDatas(this.dados.data_inicio, this.dados.data_fim)
+            console.log(">>>", this.data_inicio)
+          }
+        },
+
+      async configDatas(dataIni, dataFim) {
+
+      // 2022-12-31T17:16:00.000Z
+      // ['2022', '12', '31', '17:15']
+
+      const arrayDataIni = []
+      arrayDataIni.push(dataIni.slice(0, 4))
+      arrayDataIni.push(dataIni.slice(5, 7))
+      arrayDataIni.push(dataIni.slice(8, 10))
+      arrayDataIni.push(dataIni.slice(11, 16))
+
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_inicio += arrayDataIni[i] + "/"
+        } else {
+          this.data_inicio += arrayDataIni[i] + " " + arrayDataIni[3]
+        }
+      }
+
+      const arrayDataFim = []
+      arrayDataFim.push(dataFim.slice(0, 4))
+      arrayDataFim.push(dataFim.slice(5, 7))
+      arrayDataFim.push(dataFim.slice(8, 10))
+      arrayDataFim.push(dataFim.slice(11, 16))
+ 
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_fim += arrayDataFim[i] + "/"
+        } else {
+          this.data_fim += arrayDataFim[i] + " " + arrayDataIni[3]
+        }
+      }
+  
+    },
+    // aqui na parte de sima devem ficar as funcoes que vao substituir um cartão com o nome
+    // pelo input
+    atualizar_data_inicio() {
+      this.exibe_data_inicio = false
+      this.exibe_confg_data_inicio = true
+    },
+    atualizar_tecnicos() {
+      this.exibe_tecnicos = !this.exibe_tecnicos
+      this.exibe_confg_tecnicos = !this.exibe_confg_tecnicos
+    },
+
+    // funcoes que pegam valores do banco e exibem na tela
+    async exibirTecnicos() {
+      const tec = await PegarTecnicos();
+      this.nomeTec = tec.data;
+    },
+    },
+
+    mounted() {
+         this.MontarDados()
+         this.exibirTecnicos();
+        }
+   }
+</script>
+
+
 <template>
     <div>
         <form>
@@ -17,30 +117,53 @@
           </div>
           <div class="row mt-5">
               <label for="text" class="col-md-4"> Tecnicos de Produçao </label>
-              <div class="col-md-6">
-                <button
-                  class="btn btn-secondary dropdown-toggle col-md-6 ab"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                ></button>
-                <ul class="dropdown-menu">
-                  <div v-for="n in dados.tecnico_producao" :key="n.nome" class="form-check">
-                    <li>
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        :value="n.nome"
-                        :id="n.nome"
-                        v-model="nomeTecnicos"
-                      />
-                    </li>
-                    <label class="form-check-label" for="flexCheckChecked">{{
-                      n.nome
-                    }}</label>
+
+              <!-- substituir este cartão pelo botão com os selects
+              com os nomes de tecnicos -->
+              <div
+              v-if="exibe_tecnicos == true">
+                <div class="col-md-4">
+                  <div v-for="tec in this.dados.tecnico_producao" 
+                  :key="tec.nome"
+                  class="form-control az ab" aria-label="Recipient's username">
+                    {{ tec.nome }}
                   </div>
-                </ul>
+                </div>
               </div>
+
+
+              <div 
+                v-if="exibe_confg_tecnicos == true">
+                <div class="col-md-6">
+                  <button
+                    class="btn btn-secondary dropdown-toggle col-md-6 ab"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <div v-for="n in nomeTec" :key="n.nome" class="form-check">
+                      <li>
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          :value="n.nome"
+                          :id="n.nome"
+                          v-model="nomeTecnicos"
+                        />
+                      </li>
+                      <label class="form-check-label" for="flexCheckChecked">{{
+                        n.nome
+                      }}</label>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+
+              <button type="button"
+              class="col-1"
+              @click="atualizar_tecnicos">alterar</button>
+
           </div>
           <div class="row mt-3">
             <label for="text" class="col-md-4">Auxiliares </label>
@@ -70,17 +193,31 @@
             </div>
           </div>
         </div>
-
+ 
         <div class="col">
           <div class="row mt-3">
-            <label for="text" class="col-md-4">Data de inicio</label>
-            <div class="col-md-6">
-              <input
-                type="datetime-local"
-                class="form-control az ab"
-                id="datetime-local"
-                v-model="data_inicio"
-              />
+            <!-- quando o usuario clica aqui... a ideia e que 
+            esse cartão desapareça e no lugar dele um input pra colocar a data apareça -->
+            <div @click="atualizar_data_inicio"
+            v-if="exibe_data_inicio ==  true">
+              <label for="text" class="col-md-4">Data de Inicio:</label>
+              <div class="ab az col-md-6">
+                <div
+                  class="py-2 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
+                  {{ data_inicio }}
+                </div>
+              </div>
+            </div>
+
+            <div v-if="exibe_confg_data_inicio == true">
+              <label for="text" class="col-md-4">Data de inicio</label>
+              <div class="col-md-6">
+                <input
+                  type="datetime-local"
+                  class="form-control az ab"
+                  id="datetime-local"
+                />
+              </div>
             </div>
           </div>
 
@@ -155,22 +292,11 @@
                                 :id="id_inputIng"
                                v-model="ingredientesUtili[i - 1].quantidade"
                               />
-                              <!-- acrescentar um v-if
-                              para que quando o tipo de ingrediente for selecionado,
-                              o nome quantidade desapareça e seja subistituido pelo
-                              tipo de medida Kg, L, etc -->
+                             
                               <label class="col-md-6 form-check-label" for="quantProd"
                                 >Quantidade</label
                               >
                             </div>
-
-                            <!-- <button
-                              type="button"
-                              class="mt-2 ms-2 btn btn-primary"
-                              @click="BotaoIncrementIngredientes"
-                              >
-                              + adicinar ingrediente
-                            </button> -->
                           </form>
 
                             <div class="ab botoes col-md-4 mt-2 ms-2">
@@ -267,13 +393,6 @@
                             
                           </form>
 
-                          <!-- <button
-                            type="button"
-                            class="mt-2 btn btn-primary"
-                            @click="BotaoIncrementProdutos"
-                          >
-                            + adicinar produto
-                          </button> -->
                           <div class="ab botoes col-md-4 mt-2 ms-2">
                             <button
                               style="font-weight: 700;" 
@@ -337,65 +456,3 @@
     </form>
     </div>
 </template>
-
-<script>
-   export default {
-    name: "UpdateRegistro",
-    props: {
-      dados: Object
-    },
-
-    data() {
-        return {
-            // dados: ""
-        }
-    },
-    methods: {
-      MontarDados(){
-          if (this.dados != null) {
-            this.configDatas(this.dados.data_inicio, this.dados.data_fim)
-            console.log(">>>", this.dados)
-          }
-        },
-
-      async configDatas(dataIni, dataFim) {
-
-      // 2022-12-31T17:16:00.000Z
-      // ['2022', '12', '31', '17:15']
-
-      const arrayDataIni = []
-      arrayDataIni.push(dataIni.slice(0, 4))
-      arrayDataIni.push(dataIni.slice(5, 7))
-      arrayDataIni.push(dataIni.slice(8, 10))
-      arrayDataIni.push(dataIni.slice(11, 16))
-
-      for (let i = 2; i >= 0; i--) {
-        if (i != 0) {
-          this.data_inicio += arrayDataIni[i] + "/"
-        } else {
-          this.data_inicio += arrayDataIni[i] + " " + arrayDataIni[3]
-        }
-      }
-
-      const arrayDataFim = []
-      arrayDataFim.push(dataFim.slice(0, 4))
-      arrayDataFim.push(dataFim.slice(5, 7))
-      arrayDataFim.push(dataFim.slice(8, 10))
-      arrayDataFim.push(dataFim.slice(11, 16))
- 
-      for (let i = 2; i >= 0; i--) {
-        if (i != 0) {
-          this.data_fim += arrayDataFim[i] + "/"
-        } else {
-          this.data_fim += arrayDataFim[i] + " " + arrayDataIni[3]
-        }
-      }
-  
-    }
-    },
-
-    mounted() {
-         this.MontarDados()
-        }
-   }
-</script>
