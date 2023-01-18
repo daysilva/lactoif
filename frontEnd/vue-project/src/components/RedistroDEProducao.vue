@@ -76,7 +76,7 @@ export default {
           <h2>REGISTO DE PRODUCAO</h2>
         </div>
       </div>
-      <div class="m-5">
+      <div class="m-5"> 
         <div class="row">
           <div class="col-m-5 col-md-2">
             <div class="for-text">Produção n°</div>
