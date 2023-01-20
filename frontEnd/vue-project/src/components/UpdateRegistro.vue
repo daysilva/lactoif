@@ -25,9 +25,24 @@
 
           exibe_data_inicio: true,
           exibe_confg_data_inicio: false,
+          exibe_data_fim: true,
+          exibe_confg_data_fim: false,
           exibe_tecnicos: true,
-          exibe_confg_tecnicos: false
+          exibe_confg_tecnicos: false,
+          exibir_auxiliar: true,
+          exib_config_auxiliar: false,
+          exib_ingredientes: true,
+          exib_config_ingredientes: false,
+          exib_produtos: true,
+          exib_config_produtos: false,
 
+
+          loopIngredientes: 1,
+          loopProdutos: 1,
+          id_input: 100,
+          id_inputIng: 100,
+          ingredientesUtili: [{nome_ingrediente: "", quantidade: 0}], // .push({}, {})
+          nomeProd_Criado: [{ nome_produto: "", quantidade_produzida: 0 }],
         }
     },
     methods: {
@@ -48,7 +63,7 @@
       arrayDataIni.push(dataIni.slice(5, 7))
       arrayDataIni.push(dataIni.slice(8, 10))
       arrayDataIni.push(dataIni.slice(11, 16))
-
+ 
       for (let i = 2; i >= 0; i--) {
         if (i != 0) {
           this.data_inicio += arrayDataIni[i] + "/"
@@ -78,9 +93,30 @@
       this.exibe_data_inicio = false
       this.exibe_confg_data_inicio = true
     },
+
+    atualizar_data_fim(){
+      this.exibe_data_fim = false
+      this.exibe_confg_data_fim = true
+    },
+
     atualizar_tecnicos() {
       this.exibe_tecnicos = !this.exibe_tecnicos
       this.exibe_confg_tecnicos = !this.exibe_confg_tecnicos
+    },
+
+    atualizar_auxiliar(){
+      this.exibir_auxiliar = !this.exibir_auxiliar
+      this.exib_config_auxiliar = !this.exib_config_auxiliar
+    },
+
+    atualizar_ingredientes(){
+      this.exib_ingredientes = !this.exib_ingredientes
+      this.exib_config_ingredientes = !this.exib_config_ingredientes
+    },
+
+    atualizar_produtos() {
+      this.exib_produtos = !this.exib_produtos
+      this.exib_config_produtos = !this.exib_config_produtos
     },
 
     // funcoes que pegam valores do banco e exibem na tela
@@ -88,11 +124,59 @@
       const tec = await PegarTecnicos();
       this.nomeTec = tec.data;
     },
+
+    async exibirAuxiliares() {
+      const aux = await PegarAuxiliar()
+      this.nomeAuxi = aux.data
+    },
+
+    async exibirIngredientes() {
+      const ing = await PegarIngrediente()
+      this.nomeIngred = ing.data
+    },
+
+    async exibirProdutos() {
+      const prod = await PegarProdutos()
+      this.nomeProdutos = prod.data
+    },
+
+
+  BotaoIncrementIngredientes() {
+      this.loopIngredientes++
+      // um id para os inputs de quantidade para q cada um seja unico
+      this.id_inputIng++;
+      this.ingredientesUtili.push({nome_ingrediente: "", quantidade: 0})
+   },
+
+   BotaoDecrementeIngredientes() {
+    this.loopIngredientes--
+    this.id_inputIng--
+
+    this.ingredientesUtili.pop()
+   },
+
+   BotaoIncrementProdutos() {
+      this.loopProdutos++;
+      // um id para os inputs de quantidade para q cada um seja unico
+      this.id_input++;
+
+      this.nomeProd_Criado.push({ nome_produto: "", quantidade_produzida: 0 });
+    },
+
+    BotaoDecrementeProdutos() {
+      this.loopProdutos--
+      this.id_input--
+
+      this.nomeProd_Criado.pop()
+    }
     },
 
     mounted() {
          this.MontarDados()
-         this.exibirTecnicos();
+         this.exibirTecnicos()
+         this.exibirAuxiliares()
+         this.exibirIngredientes()
+         this.exibirProdutos()
         }
    }
 </script>
@@ -167,7 +251,20 @@
           </div>
           <div class="row mt-3">
             <label for="text" class="col-md-4">Auxiliares </label>
-            <div class="col-md-6">
+
+            <div
+            v-if="exibir_auxiliar == true">
+              <div class="col-md-4">
+                <div v-for="aux in dados.auxiliar_producao" 
+                :key="aux.nome"
+                class="form-control az ab">{{ aux.nome }}</div>
+              </div>
+            </div>
+
+            <div
+            v-if="exib_config_auxiliar == true"
+            >
+              <div class="col-md-6">
               <button
                 class="btn btn-secondary dropdown-toggle ab col-md-6"
                 type="button"
@@ -191,6 +288,13 @@
                 </div>
               </ul>
             </div>
+
+            </div>
+            
+            <button
+            class="col-2"
+            @click="atualizar_auxiliar"
+             type="button">atualizar</button>
           </div>
         </div>
  
@@ -221,27 +325,60 @@
             </div>
           </div>
 
-          <div class="row">
+
             <div class="row mt-4">
               <label for="text" class="col-md-4">Data de finalização</label>
-              <div class="col-md-6">
-                <input
-                  type="datetime-local"
-                  class="form-control az ab"
-                  id="datetime-local"
-                  v-model="data_fim"
-                />
+
+              <div @click="atualizar_data_fim"
+              v-if="exibe_data_fim ==  true">
+              <div class="ab az col-md-6">
+              <div
+                class="py-2 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
+                {{ data_fim }}
               </div>
             </div>
-          </div>
+              </div>
+
+              <div
+                v-if="exibe_confg_data_fim">
+                <div class="col-md-6">
+                  <input
+                    type="datetime-local"
+                    class="form-control az ab"
+                    id="datetime-local"
+                  />
+                </div>
+              </div>
+              
+
+
+            </div>
         </div>
 
         <div class="row mt-5">
           <!-- ingredientes a esquerda -->
+
           <div class="col">
+            <label for="text" class="col-md-12">Ingrendientes Ultilizados</label>
             <div class="row">
-              <label for="text" class="col-md-3"> Ingredientes </label>
               <div class="col-md-6">
+
+
+                <div
+                v-if="exib_ingredientes == true">
+                  <div class="col-md-5">
+                    <div v-for="ing in dados.ingrediente_produto"
+                    :key="ing.nome"
+                      class="input-group">
+                      <div class="form-control az ac">{{ ing.nome }}</div>
+                      <span class="input-group-text ax">{{  ing.quantidade}} {{ ing.medicao }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                v-if="exib_config_ingredientes == true"
+                >
                 <div class="az ab border border-0" id="accordionPanelsStayOpenExample">
                   <div class="accordion-item">
                       <button
@@ -317,19 +454,41 @@
                                 @click="BotaoDecrementeIngredientes">
                                 -
                               </button>
-                            </div>
-                        </div>
+                              </div>
+                          </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+
+            <button type="button"
+            class="col-md-2"
+            @click="atualizar_ingredientes">atualizar</button>
+            </div>
+
+
+
           <!-- produtos a direita -->
           <div class="col">
               <div class="row">
                 <label for="text" class="col-md-3"> Produto(os) </label>
                 <div class="col-md-6">
+
+                  <div
+                  v-if="exib_produtos == true">
+                    <div v-for="prod in dados.produto_producao" 
+                      :key="prod.nome_produto"
+                      class="input-group">
+                      <div class="form-control az ac">{{ prod.nome_produto }}</div>
+                      <span class="input-group-text ax">{{ prod.quantidade_produzida }} {{ prod.medicao }}</span>
+                    </div>
+                  </div>
+
+                  <div
+                  v-if="exib_config_produtos == true">
+                    
                   <div class="az ab border border-0" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                         <button
@@ -411,15 +570,21 @@
                               @click="BotaoDecrementeProdutos"
                               >
                               -
-                            </button>
-                           
+                              </button>
+                            
+                            </div>
+                          
                           </div>
-                        
                         </div>
                       </div>
                     </div>
                   </div>
+                  <button
+                  class="col-md-2"
+                  @click="atualizar_produtos"
+                  type="button">atualizar</button>
                 </div>
+
               </div>
           </div>
         </div>
@@ -434,7 +599,7 @@
                 class="form-control az tam ab"
                 id="exampleFormControlTextarea1"
                 rows="3"
-                v-model="objetivo"
+          
               ></textarea>
             </div>
           </div>
@@ -447,7 +612,7 @@
                 class="form-control az tam ab"
                 id="exampleFormControlTextarea1"
                 rows="3"
-                v-model="regist_ocorren"
+                
               ></textarea>
             </div>
           </div>

@@ -149,7 +149,7 @@ export default {
       this.id_input--
 
       this.nomeProd_Criado.pop()
-    },
+    }, 
 
    BotaoIncrementIngredientes() {
       this.loopIngredientes++
