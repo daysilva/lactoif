@@ -9,6 +9,7 @@
       <div class="row mt-4 mx-5">
         <!-- lado direito -->
         <div class="col-md-6">
+          
             <div
             v-for="ing in ingredientes"
             :key="ing.nome"
@@ -23,36 +24,25 @@
         </div>
 
         <!-- lado esquerdo -->
-        <div class="col-md-6">
-            <div class="az ab border border-0" id="accordionPanelsStayOpenExample">
-                  <div class="accordion-item">
-                    <button
+        <div class="col-md-6 ">
+            <div class="az ab border border-2  p-4 ">
+                  <div >
+                   
                     
-                        class="btn btn-secondary dropdown-toggle rounded-pill az col-md-12 " 
-                        type="button"
-                        
-                        data-bs-toggle="collapse"
-                        data-bs-target="#ingredientes-collapseThree"
-                        aria-expanded="false"
-                        aria-controls="ingredientes-collapseThree"
-                      > </button>
-                    <div
-                      id="ingredientes-collapseThree"
-                      class="accordion-collapse collapse"
-                      aria-labelledby="ingredientes-collapseThree"
-                    >
                       <!-- cartoes de ingrediente e quatidade -->
 
                       <div class="accordion-body pb-2">
-                          <form class="border border-1 col-md-11 m-2 rounded-top rounded-4 pb-1" 
+                          <form class="border border-1 col-md-11 m-2 rounded-top rounded-4  p-3" 
                           >
 
                             <div class="row">
                               <select
                                v-model="nome_ingrediente"
-                                class="m-3 form-select w-75"
-                                aria-label="Default select example"
-                              >
+                                class="m-3 form-select w-75 "
+                                aria-label="Default select example "
+                                >
+                                
+                              
                               <option>Ingredientes</option>
                                 <option
                                   v-for="ing in ingredientes"
@@ -61,6 +51,7 @@
                                 >
                                 {{ ing.nome }}                             
                                 </option>
+                                <option><button>Outros</button> </option>
                               </select>
                             </div>
 
@@ -93,7 +84,7 @@
                                 
                             </div>
                         </div>
-                    </div>
+                    
                   </div>
                 </div>
         </div>

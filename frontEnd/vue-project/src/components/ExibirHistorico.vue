@@ -127,7 +127,7 @@
                   >Objetivo da Atividade</label
                 >
                 <div
-                  class="form-control az tam ab">
+                  class="form-control az tam ab altura">
                   {{ dados.objetivo }}
                 </div>
               </div>
@@ -141,7 +141,7 @@
                   >Registro de Ocorrência</label
                 >
                 <div
-                  class="form-control az tam ab">
+                  class="form-control az tam ab altura">
                   {{ dados.registro_ocorrencia }}
                 </div>
               </div>
@@ -151,8 +151,9 @@
       </div>
       
       <button
+      class=" btn botoes"
       @click="$emit('updateRegistro')"
-       type="button">Atualizar</button>
+       type="button">EDITAR</button>
     </form>
   </div>
 </template>
