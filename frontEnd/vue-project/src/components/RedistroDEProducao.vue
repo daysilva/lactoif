@@ -189,7 +189,7 @@ export default {
                   >Objetivo da Atividade</label
                 >
                 <div
-                  class="form-control az tam ab">{{ dados.objetivo }}
+                  class="form-control az tam ab altura ">{{ dados.objetivo }}
                 </div>
               </div>
             </div>
@@ -202,7 +202,7 @@ export default {
                   >Registro de Ocorrência</label
                 >
                 <div
-                  class="form-control az tam ab">{{ dados.registro_ocorrencia }}
+                  class="form-control az tam ab altura  ">{{ dados.registro_ocorrencia }}
                 </div>
               </div>
             </div>

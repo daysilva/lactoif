@@ -245,8 +245,8 @@
               </div>
 
               <button type="button"
-              class="col-1"
-              @click="atualizar_tecnicos">alterar</button>
+              class="col-2 btn botoes"
+              @click="atualizar_tecnicos">Atualizar</button>
 
           </div>
           <div class="row mt-3">
@@ -292,7 +292,7 @@
             </div>
             
             <button
-            class="col-2"
+            class=" col-2 btn botoes"
             @click="atualizar_auxiliar"
              type="button">atualizar</button>
           </div>
@@ -309,7 +309,7 @@
                 <div
                   class="py-2 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
                   {{ data_inicio }}
-                </div>
+                 </div>
               </div>
             </div>
 
@@ -464,7 +464,7 @@
             </div>
 
             <button type="button"
-            class="col-md-2"
+            class=" col-md-2 btn botoes"
             @click="atualizar_ingredientes">atualizar</button>
             </div>
 
@@ -579,11 +579,19 @@
                       </div>
                     </div>
                   </div>
-                  <button
-                  class="col-md-2"
-                  @click="atualizar_produtos"
-                  type="button">atualizar</button>
+                  <button type="button"
+                  class=" btn botoes ol-md-3"
+                  @click="atualizar_produtos">Atualizar
+                   </button>
                 </div>
+
+
+           
+
+
+
+
+
 
               </div>
           </div>
@@ -591,30 +599,28 @@
 
         <div class="row">
           <div class="col">
-            <div class="mb-3 mt-5">
-              <label for="exampleFormControlTextarea1" class="form-label"
-                >Objetivo da Atividade:</label
-              >
-              <textarea
-                class="form-control az tam ab"
-                id="exampleFormControlTextarea1"
-                rows="3"
-          
-              ></textarea>
-            </div>
+            <div class="mb-3 mt-4">
+                <label for="exampleFormControlTextarea1" class="form-label"
+                  >Objetivo da Atividade</label
+                >
+                <div>
+                  <input type="text" class="form-control az tam ab altura" id="text" v-model="dados.objetivo" />
+                </div>
+              </div>
+              
           </div>
           <div class="col">
-            <div class="mb-3 mt-5">
-              <label for="exampleFormControlTextarea1" class="form-label"
-                >Registro de Ocorrencia:</label
-              >
-              <textarea
-                class="form-control az tam ab"
-                id="exampleFormControlTextarea1"
-                rows="3"
-                
-              ></textarea>
-            </div>
+           
+              <div class="mb-3 mt-4">
+                <label for="exampleFormControlTextarea1" class="form-label"
+                  >Registro de Ocorrência</label
+                >
+                <div>
+                  <input type="text" class="form-control az tam ab altura" id="text" v-model="dados.registro_ocorrencia" />
+                </div>
+              </div>
+              
+            
           </div>
         </div>
       </div>
