@@ -232,7 +232,18 @@ const CadastrarProducao = async (produto_criado, n_producao, data_inicio, data_f
     await CadastrarIngrediente(ingredientesUtili, n_producao)
 }
 
+
+const insertAuxiliar = async (nome_auxiliar) => {
+    try {
+        const cadastrar = await connection.execute("insert into auxiliares (nome) value (?)", [nome_auxiliar])
+    }
+    catch (erro) {
+        return console.log("nao foi possivel inserir o auxiliar " + e)
+    }
+}
+
 module.exports = {
     CadastrarProducao,
-    validarNomeProducao
+    validarNomeProducao,
+    insertAuxiliar
 }

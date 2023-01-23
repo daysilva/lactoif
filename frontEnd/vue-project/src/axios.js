@@ -35,6 +35,15 @@ const PegarProdutos = async () => {
 }
 
 
+// antes de registrar a produção, deve ser possivel inserir um auxiliar
+//  que não esteja disponivel para escolher
+const IsertAuxiliar = async (nome) => {
+  const aux = await Api.post('dados/registrar_auxiliar', {
+    nome_auxiliar: nome
+  })
+}
+
+
 // tem que retornar alguma coisa como resposta pra saber
 const RegistrarProducao = async (dados) => {
   const inserir = await Api.post('dados/registrar_producao', dados)
@@ -76,5 +85,6 @@ export {
    PegarUltimoRegistro,
    getHistorico,
    pegarNProducao,
-   atualizarEstoque
+   atualizarEstoque,
+   IsertAuxiliar
 }

@@ -7,6 +7,7 @@ import {
   PegarIngrediente,
   PegarProdutos,
   RegistrarProducao,
+  IsertAuxiliar
 } from "../axios";
 
 export default {
@@ -41,6 +42,8 @@ export default {
       data_inicio: "",
       novaDataInicio: "",
 
+      nomeNovoAuxiliar: "outros",
+
       data_fim: "",
       novaDataFim: "",
 
@@ -49,6 +52,7 @@ export default {
       nomeAuxiliares: [],
       nomeTecnicos: [],
       ingredientesUtili: [{nome_ingrediente: "", quantidade: 0}], // .push({}, {})
+
     };
   },
 
@@ -163,6 +167,16 @@ export default {
     this.id_inputIng--
 
     this.ingredientesUtili.pop()
+   },
+
+   async insertOutros() {
+    const x = await IsertAuxiliar(this.nomeNovoAuxiliar)
+    this.nomeAuxiliares.push(this.nomeNovoAuxiliar)
+    this.nomeNovoAuxiliar = "outros"
+   },
+
+   apagarValueOutros() {
+    this.nomeNovoAuxiliar = ""
    }
 
   },
@@ -231,7 +245,7 @@ export default {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               ></button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu ps-2">
                 <div v-for="n in nomeAuxi" :key="n.nome" class="form-check">
                   <li>
                     <input
@@ -246,6 +260,15 @@ export default {
                     n.nome
                   }}</label>
                 </div>
+               <div class="row grid gap-2 column-gap-1">
+                <input
+                class="col-md-6 ms-3 border border-1 rounded-2" 
+                type="text" name="outros" id="outros" 
+                v-model="nomeNovoAuxiliar" @click="apagarValueOutros">
+                <button @click="insertOutros" 
+                style="font-weight: 700;" type="button" 
+                class="col-md-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+               </div>
               </ul>
             </div>
           </div>
