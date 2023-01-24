@@ -88,7 +88,7 @@ const PegarProdutos = async (req, res) => {
 }
 
 
-// antes de fazer o registro de uma producao dwvwmos inserir outros possiveis auxiliares
+// antes de fazer o registro de uma producao devemos inserir outros possiveis auxiliares
 const insertAuxiliar = async (req, res) => {
     try {
         const dados = await req.body
@@ -100,6 +100,21 @@ const insertAuxiliar = async (req, res) => {
         return res.json({msg: "falha na requisicao " + erro})
     }
 }
+
+
+// antes de fazer o registro de uma producao devemos inserir outros possiveis produtos
+const insertProduto = async (req, res) => {
+    try {
+        const dados = await req.body
+        await OperacoesRegistrar.insertProduto(dados.nome_produto, dados.medicao)
+
+        return res.status(200).json({msg: "dados cadastrados"})
+    }
+    catch (erro) {
+        return res.json({msg: "falha na requisicao " + erro})
+    }
+}
+
  
 // pegar os valores que o usuario marcou no registro e inserir no banco
 const CadastrarProducao = async (req, res) => {
@@ -223,5 +238,6 @@ module.exports = {
     getHistorico,
     atualizarRegistro,
     AtualizarEstoque,
-    insertAuxiliar
+    insertAuxiliar,
+    insertProduto
 }

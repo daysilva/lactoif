@@ -7,7 +7,8 @@ import {
   PegarIngrediente,
   PegarProdutos,
   RegistrarProducao,
-  IsertAuxiliar
+  IsertAuxiliar,
+  InsertProduto
 } from "../axios";
 
 export default {
@@ -35,6 +36,7 @@ export default {
       loopIngredientes: 1,
       id_input: 100,
       id_inputIng: 100,
+      id_outros_prod: 150,
 
       // .push({"nome_produto": "iorgute", "quantidade_produzida": 2})
       nomeProd_Criado: [{ nome_produto: "", quantidade_produzida: 0 }],
@@ -43,6 +45,8 @@ export default {
       novaDataInicio: "",
 
       nomeNovoAuxiliar: "outros",
+      nomeNovoProduto: "outros",
+      medicao: "",
 
       data_fim: "",
       novaDataFim: "",
@@ -145,6 +149,8 @@ export default {
       // um id para os inputs de quantidade para q cada um seja unico
       this.id_input++;
 
+      this.id_outros_prod++
+
       this.nomeProd_Criado.push({ nome_produto: "", quantidade_produzida: 0 });
     },
 
@@ -169,13 +175,23 @@ export default {
     this.ingredientesUtili.pop()
    },
 
-   async insertOutros() {
-    const x = await IsertAuxiliar(this.nomeNovoAuxiliar)
+   async insertOutrosAuxiliares() {
+    await IsertAuxiliar(this.nomeNovoAuxiliar)
     this.nomeAuxiliares.push(this.nomeNovoAuxiliar)
     this.nomeNovoAuxiliar = "outros"
    },
 
-   apagarValueOutros() {
+   async insertOutrosProdutos() {
+    await InsertProduto(this.nomeNovoProduto, this.medicao)
+    this.nomeProd_Criado[this.nomeProd_Criado.length - 1].nome_produto = this.nomeNovoProduto
+    this.nomeNovoProduto = "outros"
+   },
+
+   apagarValueOutrosProdutos() {
+    this.nomeNovoProduto = ""
+   },
+
+   apagarValueOutrosAuxiliares() {
     this.nomeNovoAuxiliar = ""
    }
 
@@ -264,8 +280,8 @@ export default {
                 <input
                 class="col-md-6 ms-3 border border-1 rounded-2" 
                 type="text" name="outros" id="outros" 
-                v-model="nomeNovoAuxiliar" @click="apagarValueOutros">
-                <button @click="insertOutros" 
+                v-model="nomeNovoAuxiliar" @click="apagarValueOutrosAuxiliares">
+                <button @click="insertOutrosAuxiliares" 
                 style="font-weight: 700;" type="button" 
                 class="col-md-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
                </div>
@@ -448,14 +464,53 @@ export default {
                               
                             
                               </option>
-                               <option>
-                                Outros
-                               </option>
                             </select>
                             
+                            <!-- grid gap-2 column-gap-1 -->
+                            <div class="row">
+                              <input
+                              class="col-lg-6 ms-3 border border-1 rounded-2" 
+                              type="text" name="outros" :id="id_outros_prod" 
+                              v-model="nomeNovoProduto" @click="apagarValueOutrosProdutos">
+                              
+                              <div class="dropdown col-lg-3">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="Kg"
+                                    id="Kg"
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">Kg</label>
+                                  </li>
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="L"
+                                    id="L"
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">L</label>
+                                  </li>
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="unidade"
+                                    id="unidade"
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">unidade</label>
+                                  </li>
+                                </ul>
+                              </div>
+                              <button @click="insertOutrosProdutos" 
+                              style="font-weight: 700;" type="button" 
+                              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+                            </div>
                           </div>
                             
-                            <div class="row d-flex align-items-center ps-3 pb-1">
+                            <div class="row d-flex align-items-center ps-3 pb-1 mt-2">
                               <input
                                 type="number"
                                 name="quantProd"

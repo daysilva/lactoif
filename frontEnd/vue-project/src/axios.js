@@ -44,6 +44,15 @@ const IsertAuxiliar = async (nome) => {
 }
 
 
+// inserir um produto que não esteja na lista de opções
+const InsertProduto = async (nome, medicao) => {
+  const prod = await Api.post('dados/registrar_produto', {
+    nome_produto: nome,
+	  medicao: medicao
+  })
+}
+
+
 // tem que retornar alguma coisa como resposta pra saber
 const RegistrarProducao = async (dados) => {
   const inserir = await Api.post('dados/registrar_producao', dados)
@@ -86,5 +95,6 @@ export {
    getHistorico,
    pegarNProducao,
    atualizarEstoque,
-   IsertAuxiliar
+   IsertAuxiliar,
+   InsertProduto
 }
