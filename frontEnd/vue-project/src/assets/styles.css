@@ -1,53 +1,49 @@
 .h1-color {
     color: #41A810;
 }
-label{
-    color: rgb(0, 0, 0) ;
+
+label {
+    color: rgb(0, 0, 0);
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h2{
+h2 {
     color: #41A810;
-    
 }
 
-.az{
-    background-color:#9bbeee5d !important;
-   
-    
+.az {
+    background-color: #9bbeee5d !important;
 }
-.ad{
+
+.ad {
     border-radius: 100PX 40PX 40PX 40PX;
 }
 
-.ab{
+.ab {
     border-radius: 20PX 20PX 20PX 20PX;
 }
- .ac{
+
+.ac {
     border-radius: 20PX 0PX 0PX 20PX;
- }
-.ax{
-    background-color: #949cf05d
-    !important;
-    border-left:#7c7a7a  solid 0.5px !important;
+}
+
+.ax {
+    background-color: #949cf05d !important;
+    border-left: #7c7a7a solid 0.5px !important;
     text-align: center !important;
     height: 40px;
-    
     border-radius: 0PX 20PX 20PX 0PX !important;
     display: flex;
     border-left: solid 2px rgb(148, 173, 240) !important;
-    
-    
 }
-
 
 .botoes {
     display: flex !important;
     background-color: #349F02 !important;
     height: 2.3rem;
     align-items: center !important;
-   justify-content: center !important;
-   font-size: 1.3rem;
+    justify-content: center !important;
+    font-size: 1.3rem;
 }
 
 .link-menu-ativo {
@@ -59,26 +55,63 @@ h2{
 }
 
 button {
-background-color:#9bbeee5d  !important;
-
-color: black !important;  
-text-align-last: right; 
+    background-color: #9bbeee5d !important;
+    color: black !important;
+    text-align-last: right;
 }
 
-.tam{
-   width:30rem !important ;
+.tam {
+    width: 30rem !important;
 }
 
-body{
+body {
     background-color: rgb(212, 210, 240) !important;
 }
-form img{
- 
+
+form img {
     height: 2.5rem;
     position: absolute;
-    right:  2rem;
-    
+    right: 2rem;
 }
+
 .altura {
-   min-height : 6rem;
-} 
+    min-height: 6rem;
+}
+
+#update-button-estoque {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 30px;
+}
+
+.update-icon-estoque {
+    margin-left: 1rem;
+    padding: 1rem 0;
+    display: block;
+    height: 3.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+#update-button-producao {
+    padding: 1rem 0 1rem 2rem;
+}
+
+.update-icon-producao {
+    margin-left: 2.5rem;
+    padding: 1rem 0;
+    display: block;
+    height: 3.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+button:hover .update-icon-estoque,
+button:hover .update-icon-producao {
+    transform: rotateZ(120deg);
+}
+
+button:active {
+    transition: all 0.2s ease;
+    background-color: #3B6B27 !important;
+}
