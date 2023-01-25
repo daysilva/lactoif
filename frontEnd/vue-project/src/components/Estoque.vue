@@ -12,7 +12,7 @@
 
         <div v-for="ing in ingredientes" :key="ing.nome" class="col-md-5">
           <div class="input-group">
-            <div class="form-control az ac">{{ ing.nome }}</div>
+            <div class="form-control az ac"> {{ ing.nome }}</div>
             <span class="input-group-text ax">{{ ing.quantidade_estoque }} {{ ing.medicao }}</span>
           </div>
 
@@ -65,7 +65,7 @@
         </div>
 
         <!-- outro lado direito -->
-      <div class="col-md-12 mt-4">
+      <div class="col-md-12 mt-4   ">
         <div class="az ab border border-2">
           <h5>Adicione Ingredientes</h5>
           <input
@@ -75,7 +75,7 @@
 
             <button @click="insertOutrosProdutos" 
               style="font-weight: 700;" type="button" 
-              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2 ab  ms-3 mt-2">+</button>
         </div>
       </div>
 
