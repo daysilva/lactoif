@@ -422,7 +422,7 @@ export default {
           <div class="col">
               <div class="row">
                 <label for="text" class="col-md-3"> Produto(os) </label>
-                <div class="col-md-6">
+                <div class="col-md-8">
                   <div class="az ab border border-0" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                         <button
@@ -465,49 +465,7 @@ export default {
                             
                               </option>
                             </select>
-                            
-                            <!-- grid gap-2 column-gap-1 -->
-                            <div class="row">
-                              <input
-                              class="col-lg-6 ms-3 border border-1 rounded-2" 
-                              type="text" name="outros" :id="id_outros_prod" 
-                              v-model="nomeNovoProduto" @click="apagarValueOutrosProdutos">
-                              
-                              <div class="dropdown col-lg-3">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" 
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                </button>
-                                <ul class="dropdown-menu">
-                                  <li>
-                                    <input class="form-check-input"
-                                    type="checkbox"
-                                    value="Kg"
-                                    id="Kg"
-                                    v-model="medicao">
-                                    <label class="form-check-label ps-2" for="flexCheckChecked">Kg</label>
-                                  </li>
-                                  <li>
-                                    <input class="form-check-input"
-                                    type="checkbox"
-                                    value="L"
-                                    id="L"
-                                    v-model="medicao">
-                                    <label class="form-check-label ps-2" for="flexCheckChecked">L</label>
-                                  </li>
-                                  <li>
-                                    <input class="form-check-input"
-                                    type="checkbox"
-                                    value="unidade"
-                                    id="unidade"
-                                    v-model="medicao">
-                                    <label class="form-check-label ps-2" for="flexCheckChecked">unidade</label>
-                                  </li>
-                                </ul>
-                              </div>
-                              <button @click="insertOutrosProdutos" 
-                              style="font-weight: 700;" type="button" 
-                              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
-                            </div>
+                        
                           </div>
                             
                             <div class="row d-flex align-items-center ps-3 pb-1 mt-2">
@@ -554,6 +512,49 @@ export default {
                            
                           </div>
                         
+                          <!--  -->
+                          <div class="row grid gap-0 column-gap-0 mt-2">
+                              <input
+                              class="col-lg-6 ms-3 border border-1 rounded-2" 
+                              type="text" name="outros" :id="id_outros_prod" 
+                              v-model="nomeNovoProduto" @click="apagarValueOutrosProdutos">
+                              
+                              <div class="dropdown col-lg-3">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="Kg"
+                                    id="Kg"
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">Kg</label>
+                                  </li>
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="L"
+                                    id="L"
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">L</label>
+                                  </li>
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="unidade"
+                                    id="unidade"
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">unidade</label>
+                                  </li>
+                                </ul>
+                              </div>
+                              <button @click="insertOutrosProdutos" 
+                              style="font-weight: 700;" type="button" 
+                              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+                            </div>
+
                         </div>
                       </div>
                     </div>

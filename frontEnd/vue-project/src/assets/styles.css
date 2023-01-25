@@ -106,12 +106,12 @@ form img {
     position: relative;
 }
 
-button:hover .update-icon-estoque,
-button:hover .update-icon-producao {
+#update-button-producao:hover .update-icon-estoque,
+#update-button-estoque:hover .update-icon-producao {
     transform: rotateZ(120deg);
 }
 
-button:active {
+#update-button-producao:active, #update-button-estoque:active {
     transition: all 0.2s ease;
     background-color: #3B6B27 !important;
 }

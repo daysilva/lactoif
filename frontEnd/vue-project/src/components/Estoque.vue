@@ -7,7 +7,7 @@
     </div>
 
     <div class="row mt-4 mx-5">
-      <!-- lado direito -->
+      <!-- lado esquerdo -->
       <div class="col-md-6">
 
         <div v-for="ing in ingredientes" :key="ing.nome" class="col-md-5">
@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <!-- lado esquerdo -->
+      <!-- lado direito -->
       <div class="col-md-6 ">
         <div class="az ab border border-2  p-4 ">
           <div>
@@ -38,7 +38,6 @@
                     <option v-for="ing in ingredientes" :key="ing.nome" :value="ing.nome">
                       {{ ing.nome }}
                     </option>
-                    <option><button>Outros</button> </option>
                   </select>
                 </div>
 
@@ -64,6 +63,22 @@
 
           </div>
         </div>
+
+        <!-- outro lado direito -->
+      <div class="col-md-12 mt-4">
+        <div class="az ab border border-2">
+          <h5>Adicione Ingredientes</h5>
+          <input
+            class="col-lg-6 ms-3 border border-1 rounded-2" 
+            type="text" name="outros" :id="id_outros_prod" 
+            v-model="nomeNovoingrediente" @click="apagarValueOutrosProdutos">
+
+            <button @click="insertOutrosProdutos" 
+              style="font-weight: 700;" type="button" 
+              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+        </div>
+      </div>
+
       </div>
     </div>
   </div>
@@ -81,7 +96,10 @@ export default {
     return {
       ingredientes: "",
       nome_ingrediente: "",
-      quantidade: ""
+      quantidade: "",
+
+      nomeNovoingrediente: 'outros',
+      medicao: ''
     }
   },
 
@@ -95,6 +113,10 @@ export default {
     async AtualizarEstoque() {
       await atualizarEstoque(this.nome_ingrediente, this.quantidade)
       this.getIngredientes()
+    },
+
+    apagarValueOutrosProdutos(){
+      this.nomeNovoingrediente = ''
     }
   },
 
