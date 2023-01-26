@@ -149,11 +149,20 @@
           </div>
         </div>
       </div>
-      
+      <div class="row">
+       <div class="col">
       <button
       class=" btn botoes"
       @click="$emit('updateRegistro')"
        type="button">EDITAR</button>
+       </div>
+       <div class="col">
+       <button
+      class=" btn botoes "
+      @click="excluirhistorico"
+       type="button">EXCLUIR</button>
+      </div>
+    </div>
     </form>
   </div>
 </template>
@@ -180,6 +189,10 @@
         methods: {
         exibir() {
           console.log("opa")
+        },
+
+        async excluirhistorico(){
+          console.log('excluiuuu')
         },
 
         MontarDados(){
