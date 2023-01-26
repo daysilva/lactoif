@@ -14,11 +14,19 @@ const UpdateEstoque = async (nome_ingrediente, quantidade) => {
 
 
 
-
-
+const InsertNovoIngrediente = async (nome, medicao) => {
+    try {
+        await connection.execute(`insert into ingredientes (nome, quantidade_estoque, medicao) 
+        values (?, ${0}, ?)`, [nome, medicao])
+    }
+    catch (erro) {
+        console.log("erro na operacao " + erro)
+    }
+}
 
 
 
 module.exports = {
-    UpdateEstoque
+    UpdateEstoque,
+    InsertNovoIngrediente
 }

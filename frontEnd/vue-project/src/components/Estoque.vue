@@ -12,7 +12,7 @@
 
         <div v-for="ing in ingredientes" :key="ing.nome" class="col-md-5">
           <div class="input-group">
-            <div class="form-control az ac">{{ ing.nome }}</div>
+            <div class="form-control az ac"> {{ ing.nome }}</div>
             <span class="input-group-text ax">{{ ing.quantidade_estoque }} {{ ing.medicao }}</span>
           </div>
 
@@ -65,19 +65,36 @@
         </div>
 
         <!-- outro lado direito -->
-      <div class="col-md-12 mt-4">
-        <div class="az ab border border-2">
-          <h5>Adicione Ingredientes</h5>
-          <input
-            class="col-lg-6 ms-3 border border-1 rounded-2" 
-            type="text" name="outros" :id="id_outros_prod" 
-            v-model="nomeNovoingrediente" @click="apagarValueOutrosProdutos">
+        <div class="col-md-12 mt-4">
+          <div class="az ab border border-2">
+            <h5>Adicione Ingredientes</h5>
+            <input class="col-lg-3 ms-3 border border-1 rounded-2" type="text" name="outros" :id="id_outros_prod"
+              v-model="nomeNovoingrediente" @click="apagarValueNovoIngrediente">
 
-            <button @click="insertOutrosProdutos" 
-              style="font-weight: 700;" type="button" 
+            <div class="dropdown col-lg-2">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+              </button>
+              <ul class="dropdown-menu pt-1">
+                <li>
+                  <input class="form-check-input" type="radio" value="Kg" id="Kg" name="medicao" v-model="medicao">
+                  <label class="form-check-label ps-2" for="flexCheckChecked">Kg</label>
+                </li>
+                <li>
+                  <input class="form-check-input" type="radio" value="L" id="L" name="medicao">
+                  <label class="form-check-label ps-2" for="flexCheckChecked">L</label>
+                </li>
+                <li>
+                  <input class="form-check-input" type="radio" value="unidade" id="unidade" name="medicao">
+                  <label class="form-check-label ps-2" for="flexCheckChecked">unidade</label>
+                </li>
+              </ul>
+            </div>
+
+            <button @click="insertNovoIngrediente" style="font-weight: 700;" type="button"
               class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+          </div>
         </div>
-      </div>
 
       </div>
     </div>
@@ -86,7 +103,11 @@
 
 <script>
 
-import { PegarIngrediente, atualizarEstoque } from '../axios';
+import {
+  PegarIngrediente,
+  atualizarEstoque,
+  insertIngrediente
+} from '../axios';
 
 
 export default {
@@ -115,7 +136,11 @@ export default {
       this.getIngredientes()
     },
 
-    apagarValueOutrosProdutos(){
+    async insertNovoIngrediente() {
+      // await insertIngrediente(this.nomeNovoingrediente, this.medicao)
+    },
+
+    apagarValueNovoIngrediente() {
       this.nomeNovoingrediente = ''
     }
   },

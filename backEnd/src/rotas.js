@@ -61,6 +61,10 @@ router.put('/dados/update/:n_prod', jsonParser, controler.atualizarRegistro)
 router.put('/dados/update/estoque/:nome_ingrediente/:quantidade', jsonParser, controler.AtualizarEstoque)
 
 
+// inserir um novo ingrediente ao estoque
+router.post('/dados/estoque/inserir_ingrediente', jsonParser, controler.InsertNovoIngrediente)
+
+
 router.get('/ola', (req, res) => {
     res.status(200).send("ooooiiiiaaaa")
 })

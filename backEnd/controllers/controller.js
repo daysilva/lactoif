@@ -226,6 +226,20 @@ const AtualizarEstoque = async (req, res) => {
 }
 
 
+const InsertNovoIngrediente = async (req, res) => {
+    try {
+        const dados = await req.body
+
+        await UpdateEstoque.InsertNovoIngrediente(dados.nome, dados.medicao)
+        return res.status(200).json({msg: "dados inseridos"})
+    }
+    catch (erro) {
+        return res.json({msg: "falha na requisicao " + erro})
+    }
+}
+
+
+
 module.exports = {
     fazerlogin,
     pegarTecnicos,
@@ -239,5 +253,6 @@ module.exports = {
     atualizarRegistro,
     AtualizarEstoque,
     insertAuxiliar,
-    insertProduto
+    insertProduto,
+    InsertNovoIngrediente
 }

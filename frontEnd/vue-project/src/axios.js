@@ -82,7 +82,13 @@ const atualizarEstoque = async (nome, quantidade) => {
   const update = await Api.put(`dados/update/estoque/${nome}/${quantidade}`)
 }
 
-
+// inserir ingrediente
+const insertIngrediente = async (nome, medicao) => {
+  const ing = await Api.post('dados/estoque/inserir_ingrediente', {
+    nome: nome,
+    medicao: medicao
+  })
+}
 
 export {
    ValidarUser,
@@ -96,5 +102,6 @@ export {
    pegarNProducao,
    atualizarEstoque,
    IsertAuxiliar,
-   InsertProduto
+   InsertProduto,
+   insertIngrediente
 }
