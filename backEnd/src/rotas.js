@@ -9,7 +9,9 @@ const controler = require('../controllers/controller')
 const bodyParse = require('body-parser')
 const jsonParser = bodyParse.json()
 
-
+//
+router.get('/dados/historico/nomeproducao', jsonParser, controler.pegarNomes)
+//
 
 // rota de login
 // usar uma função que se conecte ao banco
