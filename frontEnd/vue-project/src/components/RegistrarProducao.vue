@@ -43,8 +43,8 @@ export default {
       data_inicio: "",
       novaDataInicio: "",
 
-      nomeNovoAuxiliar: "outros",
-      nomeNovoProduto: "outros",
+      nomeNovoAuxiliar: "Outros",
+      nomeNovoProduto: "Outros",
       medicao: "",
 
       data_fim: "",
@@ -176,14 +176,14 @@ export default {
     async insertOutrosAuxiliares() {
       await IsertAuxiliar(this.nomeNovoAuxiliar);
       this.nomeAuxiliares.push(this.nomeNovoAuxiliar);
-      this.nomeNovoAuxiliar = "outros";
+      this.nomeNovoAuxiliar = "Outros";
     },
 
     async insertOutrosProdutos() {
       await InsertProduto(this.nomeNovoProduto, this.medicao);
       this.nomeProd_Criado[this.nomeProd_Criado.length - 1].nome_produto =
         this.nomeNovoProduto;
-      this.nomeNovoProduto = "outros";
+      this.nomeNovoProduto = "Outros";
     },
 
     apagarValueOutrosProdutos() {
@@ -209,7 +209,7 @@ export default {
 
     <form>
       <div class="row g-3 m-1">
-        <div class="col-md-10 ps-4 text-center">
+        <div class="col-md-11 ps-5 text-center">
           <h2>REGISTRAR PRODUÇÃO</h2>
         </div>
       </div>
@@ -217,7 +217,7 @@ export default {
       <div class="row g-2 mt-4">
         <div class="col">
           <div class="row">
-            <label for="text" class="col-md-4">n° de produçao</label>
+            <label for="text" class="col-md-4">N° de Produção:</label>
             <div class="col-md-3">
               <input
                 type="text"
@@ -228,7 +228,7 @@ export default {
             </div>
           </div>
           <div class="row mt-5">
-            <label for="text" class="col-md-4"> Tecnicos de Produçao </label>
+            <label for="text" class="col-md-4"> Técnicos de Produção: </label>
             <div class="col-md-6">
               <button
                 class="btn btn-secondary dropdown-toggle col-md-6 ab"
@@ -255,7 +255,7 @@ export default {
             </div>
           </div>
           <div class="row mt-3">
-            <label for="text" class="col-md-4">Auxiliares </label>
+            <label for="text" class="col-md-4">Auxiliares:</label>
             <div class="col-md-6">
               <button
                 class="btn btn-secondary dropdown-toggle ab col-md-6"
@@ -282,7 +282,7 @@ export default {
                   <input
                     class="col-md-6 ms-3 border border-1 rounded-2"
                     type="text"
-                    name="outros"
+                    name="Outros"
                     id="outros"
                     v-model="nomeNovoAuxiliar"
                     @click="apagarValueOutrosAuxiliares"
@@ -310,7 +310,7 @@ export default {
 
         <div class="col">
           <div class="row mt-3">
-            <label for="text" class="col-md-4">Data de inicio</label>
+            <label for="text" class="col-md-4">Data de Início:</label>
             <div class="col-md-6">
               <input
                 type="datetime-local"
@@ -323,7 +323,7 @@ export default {
 
           <div class="row">
             <div class="row mt-4">
-              <label for="text" class="col-md-4">Data de finalização</label>
+              <label for="text" class="col-md-4">Data de Finalização:</label>
               <div class="col-md-6">
                 <input
                   type="datetime-local"
@@ -340,7 +340,7 @@ export default {
           <!-- ingredientes a esquerda -->
           <div class="col">
             <div class="row">
-              <label for="text" class="col-md-3"> Ingredientes </label>
+              <label for="text" class="col-md-3"> Ingredientes:</label>
               <div class="col-md-6">
                 <div
                   class="az ab border border-0"
@@ -478,7 +478,7 @@ export default {
           <!-- produtos a direita -->
           <div class="col">
             <div class="row">
-              <label for="text" class="col-md-3"> Produto(os) </label>
+              <label for="text" class="col-md-3"> Produto(os): </label>
               <div class="col-md-8">
                 <div
                   class="az ab border border-0"
@@ -609,7 +609,7 @@ export default {
                           <input
                             class="col-lg-3 ms-3 border border-1 rounded-2"
                             type="text"
-                            name="outros"
+                            name="Outros"
                             :id="id_outros_prod"
                             v-model="nomeNovoProduto"
                             @click="apagarValueOutrosProdutos"
@@ -670,7 +670,6 @@ export default {
                               </li>
                             </ul>
                           </div>
-<<<<<<< HEAD
                         
                           <!--  -->
                           <div class="row grid gap-0 column-gap-0 mt-2">
@@ -718,7 +717,6 @@ export default {
                               class="w-25 botoes justify-content-center d-flex border-0 rounded-2">+</button>
                             </div>
 
-=======
                           <button
                             @click="insertOutrosProdutos"
                             style="font-weight: 700"
@@ -734,7 +732,6 @@ export default {
                           >
                             +
                           </button>
->>>>>>> cc759a715f00061f2901f5cc7cb07952b4aad2ab
                         </div>
                       </div>
                     </div>
