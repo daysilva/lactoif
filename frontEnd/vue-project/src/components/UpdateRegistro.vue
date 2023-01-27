@@ -186,7 +186,7 @@ export default {
   <div>
     <form>
       <div class="row g-3 m-1">
-        <div class="col-md-10 ps-4 text-center">
+        <div class="col-md-11 ps-5 text-center">
           <h2>ATUALIZAR REGISTRO</h2>
         </div>
       </div>
@@ -194,13 +194,13 @@ export default {
       <div class="row g-2 mt-4">
         <div class="col">
           <div class="row">
-            <label for="text" class="col-md-4">n° de produçao</label>
+            <label for="text" class="col-md-4">N° de Produção:</label>
             <div class="col-md-3">
               <input type="text" class="form-control az h-1 ab" id="text" v-model="dados.n_producao" />
             </div>
           </div>
           <div class="row mt-5">
-            <label for="text" class="col-md-4"> Tecnicos de Produçao </label>
+            <label for="text" class="col-md-4"> Técnicos de Produção: </label>
 
             <!-- substituir este cartão pelo botão com os selects
               com os nomes de tecnicos -->
@@ -238,7 +238,7 @@ export default {
 
           </div>
           <div class="row mt-3">
-            <label for="text" class="col-md-4">Auxiliares </label>
+            <label for="text" class="col-md-4">Auxiliares: </label>
 
             <div v-if="exibir_auxiliar == true">
               <div class="col-md-4">
@@ -278,7 +278,7 @@ export default {
             <!-- quando o usuario clica aqui... a ideia e que 
             esse cartão desapareça e no lugar dele um input pra colocar a data apareça -->
             <div @click="atualizar_data_inicio" v-if="exibe_data_inicio == true">
-              <label for="text" class="col-md-4">Data de Inicio:</label>
+              <label for="text" class="col-md-4">Data de Início:</label>
               <div class="ab az col-md-6">
                 <div class="py-2 rounded-pill"
                   style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
@@ -297,7 +297,7 @@ export default {
 
 
           <div class="row mt-4">
-            <label for="text" class="col-md-4">Data de finalização</label>
+            <label for="text" class="col-md-4">Data de Finalização:</label>
 
             <div @click="atualizar_data_fim" v-if="exibe_data_fim == true">
               <div class="ab az col-md-6">
@@ -323,7 +323,7 @@ export default {
           <!-- ingredientes a esquerda -->
 
           <div class="col">
-            <label for="text" class="col-md-12">Ingrendientes Ultilizados</label>
+            <label for="text" class="col-md-12">Ingrendientes Utilizados:</label>
             <div class="row">
               <div class="col-md-6">
 
@@ -354,7 +354,7 @@ export default {
                             <div class="row">
                               <select v-model="ingredientesUtili[i - 1].nome_ingrediente" class="m-3 form-select w-75"
                                 aria-label="Default select example">
-                                <option selected>Ingrediente utilizado</option>
+                                <option selected>Ingredientes Utilizados:</option>
                                 <option v-for="item in nomeIngred" :key="item" :value="item.nome">
                                   {{ item.nome }}
 
@@ -405,7 +405,7 @@ export default {
           <!-- produtos a direita -->
           <div class="col">
             <div class="row">
-              <label for="text" class="col-md-3"> Produto(os) </label>
+              <label for="text" class="col-md-3"> Produto(os): </label>
               <div class="col-md-6">
 
                 <div v-if="exib_produtos == true">
@@ -434,7 +434,7 @@ export default {
                               <select v-model="nomeProd_Criado[i - 1].nome_produto" class="m-3 form-select w-75"
                                 aria-label="Default select example">
 
-                                <option selected>Selecione os produtos</option>
+                                <option selected>Selecione os Produtos:</option>
                                 <option v-for="item in nomeProdutos" :key="item" :value="item.nome_produto">
                                   {{ item.nome_produto }}
 
@@ -484,14 +484,6 @@ export default {
                 </button>
               </div>
 
-
-
-
-
-
-
-
-
             </div>
           </div>
         </div>
@@ -499,7 +491,7 @@ export default {
         <div class="row">
           <div class="col">
             <div class="mb-3 mt-4">
-              <label for="exampleFormControlTextarea1" class="form-label">Objetivo da Atividade</label>
+              <label for="exampleFormControlTextarea1" class="form-label">Objetivo da Atividade:</label>
               <div>
                 <input type="text" class="form-control az tam ab altura" id="text" v-model="dados.objetivo" />
               </div>
@@ -509,7 +501,7 @@ export default {
           <div class="col">
 
             <div class="mb-3 mt-4">
-              <label for="exampleFormControlTextarea1" class="form-label">Registro de Ocorrência</label>
+              <label for="exampleFormControlTextarea1" class="form-label">Registro de Ocorrência:</label>
               <div>
                 <input type="text" class="form-control az tam ab altura" id="text"
                   v-model="dados.registro_ocorrencia" />
