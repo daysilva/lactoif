@@ -115,3 +115,14 @@ form img {
     transition: all 0.2s ease;
     background-color: #3B6B27 !important;
 }
+
+form #lupa {
+    height: 2.5rem;
+    position: absolute;
+    right: 7rem;
+    transition: all 0.1s ease-in-out;
+}
+
+form #lupa:hover {
+    transform: scale(1.1);
+}
