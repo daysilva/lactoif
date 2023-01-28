@@ -13,7 +13,7 @@
       <div class="m-5">
         <div class="row">
           <div class="col-m-5 col-md-2">
-            <div class="for-text">Produção n°</div>
+            <div class="for-text">Produção N°:</div>
           </div>
 
           <div class="ab az col-md-1">
@@ -25,7 +25,7 @@
         </div>
         <div class="row">
           <div>
-            <label for="text" class="col-md-4">Data de Inicio:</label>
+            <label for="text" class="col-md-4">Data de Início:</label>
             <div class="ab az col-md-2">
               <div
                 class="py-2 rounded-pill" style="diplay: flex; margin-top: 0.3rem; padding-left: 0.8rem; padding-right: 0.8rem;">
@@ -49,7 +49,7 @@
           <!-- esquerda -->
           <div class="col">
             <div class="row" style="diplay: flex; padding-top: 4rem">
-              <label for="text" class="col-md-12">Ingrendientes Ultilizados</label>
+              <label for="text" class="col-md-12">Ingrendientes Utilizados:</label>
 
               <div class="col-md-5">
                 <div
@@ -66,7 +66,7 @@
           <!-- direita -->
           <div class="col">
             <div class="row" style="diplay: flex; padding-top: 4rem">
-              <label for="text" class="col-md-12">Produto(s) Produzido(s)</label>
+              <label for="text" class="col-md-12">Produto(s) Produzido(s):</label>
 
               <div class="col-md-5">
 
@@ -88,7 +88,7 @@
           <!-- esquerdo -->
           <div class="col">
             <div class="row mt-5">
-              <label for="text" class="col-md-12">Tecnico(os) Responsável(eis)</label>
+              <label for="text" class="col-md-12">Técnico(os) Responsável(eis):</label>
 
               <div class="col-md-4">
 
@@ -106,7 +106,7 @@
           <!-- direito -->
           <div class="col">
             <div class="row mt-5">
-              <label for="text" class="col-md-12">Auxiliar(es) de Produção</label>
+              <label for="text" class="col-md-12">Auxiliar(es) de Produção:</label>
 
               <div class="col-md-4">
                 <div
@@ -124,7 +124,7 @@
             <div class="row mt-3">
               <div class="mb-3 mt-4">
                 <label for="exampleFormControlTextarea1" class="form-label"
-                  >Objetivo da Atividade</label
+                  >Objetivo da Atividade:</label
                 >
                 <div
                   class="form-control az tam ab altura">
@@ -138,7 +138,7 @@
             <div class="row mt-3">
               <div class="mb-3 mt-4">
                 <label for="exampleFormControlTextarea1" class="form-label"
-                  >Registro de Ocorrência</label
+                  >Registro de Ocorrência:</label
                 >
                 <div
                   class="form-control az tam ab altura">
@@ -159,7 +159,7 @@
        <div class="col">
        <button
       class=" btn botoes "
-      @click="excluirhistorico"
+      @click="deletarhistorico"
        type="button">EXCLUIR</button>
       </div>
     </div>
@@ -168,14 +168,14 @@
 </template>
 
 <script>
+import {apagarRegistro} from '../axios'
 
-
-    export default {
+export default {
         name: "ExibirHistorico",
         emits: ['fecharHistorico', "updateRegistro"],
         props: {
             dados: Object
-        },
+      },
 
 
         data() {
@@ -211,6 +211,8 @@
       arrayDataIni.push(dataIni.slice(8, 10))
       arrayDataIni.push(dataIni.slice(11, 16))
 
+      console.log(arrayDataIni)
+
       for (let i = 2; i >= 0; i--) {
         if (i != 0) {
           this.data_inicio += arrayDataIni[i] + "/"
@@ -233,12 +235,19 @@
         }
       }
   
-    }
-   
-        },
 
-        mounted() {
+    },
+
+    async deletarhistorico (){
+
+      const n_prod = await this.dados.n_producao.replace("/", "-")
+      await apagarRegistro(n_prod)
+     }
+   
+    },
+
+         mounted() {
          this.MontarDados()
-        },
-    }
+        }
+      }  
 </script>

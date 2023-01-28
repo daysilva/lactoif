@@ -242,6 +242,17 @@ const insertAuxiliar = async (nome_auxiliar) => {
     }
 }
 
+
+const insertTecnico = async (nome_tecnico) => {
+    try {
+        const cadastrar = await connection.execute("insert into tecnicos (nome) value (?)", [nome_tecnico])
+    }
+    catch (erro) {
+        return console.log("nao foi possivel inserir o tecnico " + e)
+    }
+}
+
+
 const insertProduto = async (nome_produto, medicao) => {
     try {
         const a = `insert into nome_produto (nome_produto, medicao) value (?, ?)`
@@ -256,5 +267,6 @@ module.exports = {
     CadastrarProducao,
     validarNomeProducao,
     insertAuxiliar,
-    insertProduto
+    insertProduto,
+    insertTecnico
 }

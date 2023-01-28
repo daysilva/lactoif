@@ -10,10 +10,12 @@ const OperacoesUpdate = require("../BD/operacoes/updateRegistro")
 
 const UpdateEstoque = require("../BD/operacoes/updateEstoque")
 
+const AtualizarHistorico = require('../BD/operacoes/updateRegistro')
+
 
 const fazerlogin = async (req, res) => {
     try {
-        
+
         const dadosfront = await req.params
         const dadosBack = await Operacoes.pegarUsuario(dadosfront.nome, dadosfront.senha)
 
@@ -35,13 +37,25 @@ const fazerlogin = async (req, res) => {
             }
         }
         else {
-            return res.status(200).json(false)            
+            return res.status(200).json(false)
         }
-        
+
     } catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
+
+// 
+const pegarNomes = async (req, res) => {
+    try {
+        nomes = req.body
+        const verif = await Operacoes.PegarNumeroProducao(nomes.n_producao)
+        return res.status(200).json(verif)
+    } catch (erro) {
+        return res.json({ msg: "falha na requisicao " + erro })
+    }
+}
+// 
 
 
 // pegar o nome dos tecnicos e mandar para o frontend
@@ -50,7 +64,7 @@ const pegarTecnicos = async (req, res) => {
         const dados = await Operacoes.PegarTecnicos()
         return res.status(200).json(dados)
     } catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
 
@@ -60,7 +74,7 @@ const pegarAuxiliares = async (req, res) => {
         const dados = await Operacoes.PegarAuxiliares()
         return res.status(200).json(dados)
     } catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
 
@@ -71,7 +85,7 @@ const PegarIngredientes = async (req, res) => {
         const dados = await Operacoes.PegarIngredientes()
         return res.status(200).json(dados)
     } catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
 
@@ -82,7 +96,7 @@ const PegarProdutos = async (req, res) => {
         const dados = await Operacoes.PegarProdutos()
         return res.status(200).json(dados)
     } catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
 
     }
 }
@@ -94,12 +108,27 @@ const insertAuxiliar = async (req, res) => {
         const dados = await req.body
         await OperacoesRegistrar.insertAuxiliar(dados.nome_auxiliar)
 
+        return res.status(200).json({ msg: "dados cadastrados" })
+    }
+    catch (erro) {
+        return res.json({ msg: "falha na requisicao " + erro })
+    }
+}
+
+
+// antes de fazer o registro de uma producao devemos inserir outros possiveis tecnicos
+const insertTecnicos = async (req, res) => {
+    try {
+        const dados = await req.body
+        await OperacoesRegistrar.insertTecnico(dados.nome_tecnico)
+
         return res.status(200).json({msg: "dados cadastrados"})
     }
     catch (erro) {
         return res.json({msg: "falha na requisicao " + erro})
     }
 }
+
 
 
 // antes de fazer o registro de uma producao devemos inserir outros possiveis produtos
@@ -108,14 +137,14 @@ const insertProduto = async (req, res) => {
         const dados = await req.body
         await OperacoesRegistrar.insertProduto(dados.nome_produto, dados.medicao)
 
-        return res.status(200).json({msg: "dados cadastrados"})
+        return res.status(200).json({ msg: "dados cadastrados" })
     }
     catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
 
- 
+
 // pegar os valores que o usuario marcou no registro e inserir no banco
 const CadastrarProducao = async (req, res) => {
     try {
@@ -123,32 +152,32 @@ const CadastrarProducao = async (req, res) => {
 
         const validar = await OperacoesRegistrar.validarNomeProducao(dados.n_producao)
 
-        if (dados.nomeProd_Criado[0].nome_produto == "" || dados.nomeProd_Criado[0].quantidade_produzida == 0 
-        || dados.n_producao == "" || dados.data_inicio == "" || 
-        dados.data_fim == "" || dados.objetivo == "" 
-        || dados.nomeAuxiliares == '' || dados.nomeTecnicos == '' 
-        || dados.ingredientesUtili[0].nome_ingrediente == "" || dados.ingredientesUtili[0].quantidade == 0) {
+        if (dados.nomeProd_Criado[0].nome_produto == "" || dados.nomeProd_Criado[0].quantidade_produzida == 0
+            || dados.n_producao == "" || dados.data_inicio == "" ||
+            dados.data_fim == "" || dados.objetivo == ""
+            || dados.nomeAuxiliares == '' || dados.nomeTecnicos == ''
+            || dados.ingredientesUtili[0].nome_ingrediente == "" || dados.ingredientesUtili[0].quantidade == 0) {
 
             return res.status(200).json(false)
         }
 
-        else if (validar == false ){
+        else if (validar == false) {
             return res.status(200).json(false)
-       }
-        
+        }
+
         else {
             // cadastrar no banco
-                await OperacoesRegistrar.CadastrarProducao(dados.nomeProd_Criado, dados.n_producao, 
+            await OperacoesRegistrar.CadastrarProducao(dados.nomeProd_Criado, dados.n_producao,
                 dados.data_inicio, dados.data_fim,
                 dados.regristro_ocorrencia, dados.objetivo, dados.nomeAuxiliares,
                 dados.nome_tecnicos, dados.ingredientesUtili);
 
-                return res.status(200).json({msg: "dados cadastrados"})
+            return res.status(200).json({ msg: "dados cadastrados" })
         }
-       
+
 
     } catch (erro) {
-        return res.json({msg: "falha ao registrar producao" + erro})
+        return res.json({ msg: "falha ao registrar producao" + erro })
     }
 }
 
@@ -157,16 +186,15 @@ const CadastrarProducao = async (req, res) => {
 // retornar os dados da producao que o usuario acabou de registrar
 const ultimoRegistro = async (req, res) => {
 
-   try {
+    try {
         const dados = await PegarUltimoRegistro.producaoRegistrada()
         return res.status(200).json(dados)
-   } 
+    }
 
-   catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
-   }
+    catch (erro) {
+        return res.json({ msg: "falha na requisicao " + erro })
+    }
 }
-
 
 const pegarNomeDeProducao = async (req, res) => {
     try {
@@ -174,7 +202,7 @@ const pegarNomeDeProducao = async (req, res) => {
         return res.status(200).json(dados)
     }
     catch (erro) {
-        return res.json({msg: "falha ao registrar producao" + erro})
+        return res.json({ msg: "falha ao registrar producao" + erro })
     }
 }
 
@@ -189,25 +217,25 @@ const getHistorico = async (req, res) => {
     }
 
     catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
 
 
-const atualizarRegistro  = async (req, res) => {
+const atualizarRegistro = async (req, res) => {
     try {
         const dados = await req.body
-       
+
         const n_producao = await req.params
         const n_prod = n_producao.n_prod.replace("-", "/")
 
         await OperacoesUpdate.atualiarRegistro(dados, n_prod)
 
-        return res.json({msg: "valores atualizados"})
+        return res.json({ msg: "valores atualizados" })
 
-    } 
+    }
     catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
 
@@ -217,11 +245,11 @@ const AtualizarEstoque = async (req, res) => {
         const dados = await req.params
 
         await UpdateEstoque.UpdateEstoque(dados.nome_ingrediente, dados.quantidade)
-        return res.status(200).json({msg: "dados atualizados"})
+        return res.status(200).json({ msg: "dados atualizados" })
 
     }
     catch (erro) {
-        return res.json({msg: "falha na requisicao " + erro})
+        return res.json({ msg: "falha na requisicao " + erro })
     }
 }
 
@@ -231,13 +259,27 @@ const InsertNovoIngrediente = async (req, res) => {
         const dados = await req.body
 
         await UpdateEstoque.InsertNovoIngrediente(dados.nome, dados.medicao)
-        return res.status(200).json({msg: "dados inseridos"})
+        return res.status(200).json({ msg: "dados inseridos" })
+    }
+    catch (erro) {
+        return res.json({ msg: "falha na requisicao " + erro })
+    }
+}
+
+
+const deleteRegristo = async (req, res) => {
+    try {
+        const dados = await req.params
+        const n_prod = dados.n_producao.replace("-", "/")
+
+        await AtualizarHistorico.deleteRegristo(n_prod)
+        
+        return res.status(200).json({msg: "registro apagado"})
     }
     catch (erro) {
         return res.json({msg: "falha na requisicao " + erro})
     }
 }
-
 
 
 module.exports = {
@@ -254,5 +296,10 @@ module.exports = {
     AtualizarEstoque,
     insertAuxiliar,
     insertProduto,
-    InsertNovoIngrediente
-}
+    InsertNovoIngrediente,
+    deleteRegristo,
+    insertTecnicos,
+    pegarNomes
+}   
+
+

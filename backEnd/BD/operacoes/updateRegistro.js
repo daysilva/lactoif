@@ -124,6 +124,33 @@ const atualiarRegistro = async (dados, n_producao) => {
  }
 
 
-module.exports = {
-    atualiarRegistro
+const deleteRegristo = async (n_producao) => { 
+    try {
+        const id_producao = await pegarProducao(n_producao)
+
+        const excluirProdutoProducao = 'delete from produto_producao where id_producao = ?'
+        await connection.execute(excluirProdutoProducao, [id_producao.id])
+    
+        const excluirAuxiliarProduto = 'delete from auxiliar_produto where id_producao = ?'
+        await connection.execute(excluirAuxiliarProduto, [id_producao.id])
+    
+        const excluirIngredientesProdutos = 'delete from ingrediente_produto where id_producao = ?'
+        await connection.execute(excluirIngredientesProdutos, [id_producao.id])
+    
+        const excluirTecnicoProduto = 'delete from tecnico_produto where id_producao = ?'
+        await connection.execute(excluirTecnicoProduto, [id_producao.id])
+    
+        const excluirProducao = 'delete from producao where n_producao = ?'
+        await connection.execute(excluirProducao, [n_producao])
+    }
+
+    catch (erro) {
+        console.log("erooo" + erro)
+       }
+
 }
+
+module.exports = {
+    deleteRegristo
+}
+

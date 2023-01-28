@@ -79,8 +79,6 @@ const getHistorico = async (n_producao) => {
     return dados
 }
 
-
-
 module.exports = {
     getHistorico
 }

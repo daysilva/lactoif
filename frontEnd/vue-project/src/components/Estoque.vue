@@ -65,11 +65,11 @@
         </div>
 
         <!-- outro lado direito -->
-<<<<<<< HEAD
+
         <div class="col-md-12 mt-4">
           <div class="az ab border border-2">
             <h5>Adicione Ingredientes</h5>
-            <input class="col-lg-3 ms-3 border border-1 rounded-2" type="text" name="outros" :id="id_outros_prod"
+            <input class="col-lg-2 ms-3 border border-1 rounded-2" type="text" name="outros" :id="id_outros_prod"
               v-model="nomeNovoingrediente" @click="apagarValueNovoIngrediente">
 
             <div class="dropdown col-lg-2">
@@ -82,11 +82,11 @@
                   <label class="form-check-label ps-2" for="flexCheckChecked">Kg</label>
                 </li>
                 <li>
-                  <input class="form-check-input" type="radio" value="L" id="L" name="medicao">
+                  <input class="form-check-input" type="radio" value="L" id="L" name="medicao" v-model="medicao">
                   <label class="form-check-label ps-2" for="flexCheckChecked">L</label>
                 </li>
                 <li>
-                  <input class="form-check-input" type="radio" value="unidade" id="unidade" name="medicao">
+                  <input class="form-check-input" type="radio" value="unidade" id="unidade" name="medicao" v-model="medicao">
                   <label class="form-check-label ps-2" for="flexCheckChecked">unidade</label>
                 </li>
               </ul>
@@ -95,24 +95,17 @@
             <button @click="insertNovoIngrediente" style="font-weight: 700;" type="button"
               class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
           </div>
-=======
-      <div class="col-md-12 mt-4   ">
-        <div class="az ab border border-2">
-          <h5>Adicione Ingredientes</h5>
-          <input
-            class="col-lg-6 ms-3 border border-1 rounded-2" 
-            type="text" name="outros" :id="id_outros_prod" 
-            v-model="nomeNovoingrediente" @click="apagarValueOutrosProdutos">
 
-            <button @click="insertOutrosProdutos" 
-              style="font-weight: 700;" type="button" 
-              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2 ab  ms-3 mt-2">+</button>
->>>>>>> cc759a715f00061f2901f5cc7cb07952b4aad2ab
+
+      
+         
         </div>
-
       </div>
+
     </div>
   </div>
+  
+  
 </template>
 
 <script>
@@ -133,7 +126,7 @@ export default {
       nome_ingrediente: "",
       quantidade: "",
 
-      nomeNovoingrediente: 'outros',
+      nomeNovoingrediente: 'Outros',
       medicao: ''
     }
   },
@@ -147,11 +140,12 @@ export default {
 
     async AtualizarEstoque() {
       await atualizarEstoque(this.nome_ingrediente, this.quantidade)
-      this.getIngredientes()
+      await this.getIngredientes()
     },
 
     async insertNovoIngrediente() {
-      // await insertIngrediente(this.nomeNovoingrediente, this.medicao)
+      await insertIngrediente(this.nomeNovoingrediente, this.medicao)
+      await this.getIngredientes()
     },
 
     apagarValueNovoIngrediente() {

@@ -9,7 +9,9 @@ const controler = require('../controllers/controller')
 const bodyParse = require('body-parser')
 const jsonParser = bodyParse.json()
 
-
+//
+router.get('/dados/historico/nomeproducao', jsonParser, controler.pegarNomes)
+//
 
 // rota de login
 // usar uma função que se conecte ao banco
@@ -33,6 +35,10 @@ router.get('/dados/produtos', jsonParser, controler.PegarProdutos)
 
 // inserir um outro auxiliar
 router.post('/dados/registrar_auxiliar', jsonParser, controler.insertAuxiliar)
+
+
+// inserir um outro tecnico
+router.post('/dados/registrar_tecnicos', jsonParser, controler.insertTecnicos)
 
 
 // inserir um outro produto
@@ -59,6 +65,11 @@ router.put('/dados/update/:n_prod', jsonParser, controler.atualizarRegistro)
 
 // atualizar o estoque
 router.put('/dados/update/estoque/:nome_ingrediente/:quantidade', jsonParser, controler.AtualizarEstoque)
+
+
+//deletar historico
+router.delete('/dados/update/deletehistorico/:n_producao', jsonParser, controler.deleteRegristo)
+
 
 
 // inserir um novo ingrediente ao estoque
