@@ -178,26 +178,14 @@ export default {
     async insertOutrosAuxiliares() {
       await IsertAuxiliar(this.nomeNovoAuxiliar);
       this.nomeAuxiliares.push(this.nomeNovoAuxiliar);
-
       this.nomeNovoAuxiliar = "outros";
-      await this.exibirAuxiliares()
-
-      this.nomeNovoAuxiliar = "Outros";
-
     },
 
     async insertOutrosProdutos() {
       await InsertProduto(this.nomeNovoProduto, this.medicao);
       this.nomeProd_Criado[this.nomeProd_Criado.length - 1].nome_produto =
         this.nomeNovoProduto;
-      this.nomeNovoProduto = "Outros";
-    },
-
-    async inserOutrosTecnicos() {
-      await InsertTecnico(this.nomeNovoTecnico)
-      this.nomeTecnicos.push(this.nomeNovoTecnico)
-      this.nomeNovoTecnico = "outros"
-      await this.exibirTecnicos()
+      this.nomeNovoProduto = "outros";
     },
 
     apagarValueOutrosProdutos() {
@@ -714,15 +702,52 @@ export default {
                               </li>
                             </ul>
                           </div>
-
-
                         
-                          
-                          
-
-
-                        
-                         
+                          <!--  -->
+                          <div class="row grid gap-0 column-gap-0 mt-2">
+                              <input
+                              class="col-lg-3 ms-3 border border-1 rounded-2" 
+                              type="text" name="outros" :id="id_outros_prod" 
+                              v-model="nomeNovoProduto" @click="apagarValueOutrosProdutos">
+                              
+                              <div class="dropdown">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                </button>
+                                <ul class="dropdown-menu pt-5">
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="Kg"
+                                    id="Kg"
+                                    name="Kg"
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">Kg</label>
+                                  </li>
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="L"
+                                    id="L"
+                                    name=""
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">L</label>
+                                  </li>
+                                  <li>
+                                    <input class="form-check-input"
+                                    type="checkbox"
+                                    value="unidade"
+                                    id="unidade"
+                                    name=""
+                                    v-model="medicao">
+                                    <label class="form-check-label ps-2" for="flexCheckChecked">unidade</label>
+                                  </li>
+                                </ul>
+                              </div>
+                              <button @click="insertOutrosProdutos" 
+                              style="font-weight: 700;" type="button" 
+                              class="w-25 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+                            </div>
 
 
                           <button
@@ -739,11 +764,7 @@ export default {
                             "
                           >
                             +
-
-                          </button> 
-
-
-                          
+                          </button>
 
                         </div>
                       </div>

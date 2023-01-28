@@ -42,6 +42,7 @@ const IsertAuxiliar = async (nome) => {
   })
 }
 
+<<<<<<< HEAD
 
 
 // registrar algum possivel tecnico que não tenha nas opções
@@ -53,6 +54,8 @@ const InsertTecnico = async (nome) => {
 
 
 
+=======
+>>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1
 // inserir um produto que não esteja na lista de opções
 const InsertProduto = async (nome, medicao) => {
   const prod = await Api.post('dados/registrar_produto', {
@@ -111,7 +114,10 @@ const apagarRegistro = async (n_producao) => {
  
 
 export {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1
   ValidarUser,
   PegarTecnicos,
   PegarAuxiliar,
@@ -125,6 +131,7 @@ export {
   IsertAuxiliar,
   InsertProduto,
   insertIngrediente,
+<<<<<<< HEAD
   apagarRegistro,
   InsertTecnico,
   pesquisarHistorico
@@ -132,3 +139,9 @@ export {
 
 
 
+=======
+  //
+  pesquisarHistorico
+  //
+}
+>>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1

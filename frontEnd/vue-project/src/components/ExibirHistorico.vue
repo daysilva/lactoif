@@ -235,6 +235,12 @@ export default {
         }
       }
   
+<<<<<<< HEAD
+=======
+    }
+
+        },
+>>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1
 
     },
 
@@ -248,6 +254,11 @@ export default {
 
          mounted() {
          this.MontarDados()
+<<<<<<< HEAD
         }
       }  
+=======
+        },
+    }
+>>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1
 </script>

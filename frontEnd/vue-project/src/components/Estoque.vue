@@ -66,6 +66,7 @@
 
         <!-- outro lado direito -->
 
+
         <div class="col-md-12 mt-4">
           <div class="az ab border border-2">
             <h5>Adicione Ingredientes</h5>
@@ -97,8 +98,19 @@
           </div>
 
 
-      
-         
+
+          <div class="col-md-12 mt-4   ">
+            <div class="az ab border border-2">
+              <h5>Adicione Ingredientes</h5>
+              <input class="col-lg-6 ms-3 border border-1 rounded-2" type="text" name="outros" :id="id_outros_prod"
+                v-model="nomeNovoingrediente" @click="apagarValueOutrosProdutos">
+
+              <button @click="insertOutrosProdutos" style="font-weight: 700;" type="button"
+                class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2 ab  ms-3 mt-2">+</button>
+            </div>
+
+          </div>
+
         </div>
       </div>
 
