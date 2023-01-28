@@ -48,7 +48,7 @@ const fazerlogin = async (req, res) => {
 // 
 const pegarNomes = async (req, res) => {
     try {
-        nomes = req.body
+        const nomes = req.body
         const verif = await Operacoes.PegarNumeroProducao(nomes.n_producao)
         return res.status(200).json(verif)
     } catch (erro) {
@@ -109,7 +109,7 @@ const insertAuxiliar = async (req, res) => {
         await OperacoesRegistrar.insertAuxiliar(dados.nome_auxiliar)
 
         return res.status(200).json({ msg: "dados cadastrados" })
-<<<<<<< HEAD
+
     }
     catch (erro) {
         return res.json({ msg: "falha na requisicao " + erro })
@@ -124,8 +124,7 @@ const insertTecnicos = async (req, res) => {
         await OperacoesRegistrar.insertTecnico(dados.nome_tecnico)
 
         return res.status(200).json({msg: "dados cadastrados"})
-=======
->>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1
+
     }
     catch (erro) {
         return res.json({ msg: "falha na requisicao " + erro })
@@ -263,7 +262,7 @@ const InsertNovoIngrediente = async (req, res) => {
 
         await UpdateEstoque.InsertNovoIngrediente(dados.nome, dados.medicao)
         return res.status(200).json({ msg: "dados inseridos" })
-<<<<<<< HEAD
+
     }
     catch (erro) {
         return res.json({ msg: "falha na requisicao " + erro })
@@ -279,8 +278,7 @@ const deleteRegristo = async (req, res) => {
         await AtualizarHistorico.deleteRegristo(n_prod)
         
         return res.status(200).json({msg: "registro apagado"})
-=======
->>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1
+
     }
     catch (erro) {
         return res.json({ msg: "falha na requisicao " + erro })
@@ -303,16 +301,11 @@ module.exports = {
     insertAuxiliar,
     insertProduto,
     InsertNovoIngrediente,
-<<<<<<< HEAD
+
     deleteRegristo,
     insertTecnicos,
     pegarNomes
 }   
 
 
-=======
-    // 
-    pegarNomes
-    // 
-}
->>>>>>> 469f0af6dabbdc548ef7ee847c6cdae64d03c6a1
+
