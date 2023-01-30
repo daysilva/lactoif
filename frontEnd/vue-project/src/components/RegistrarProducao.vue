@@ -36,7 +36,6 @@ export default {
       loopIngredientes: 1,
       id_input: 100,
       id_inputIng: 100,
-      id_outros_prod: 150,
 
       // .push({"nome_produto": "iorgute", "quantidade_produzida": 2})
       nomeProd_Criado: [{ nome_produto: "", quantidade_produzida: 0 }],
@@ -47,7 +46,9 @@ export default {
       nomeNovoAuxiliar: "Outros",
       nomeNovoProduto: "Outros",
       medicao: "",
-      nomeNovoTecnico: "outros",
+      quantidadeNovoProduto: 0,
+
+      nomeNovoTecnico: "Outros",
 
       data_fim: "",
       novaDataFim: "",
@@ -132,17 +133,17 @@ export default {
 
     // toda vez que alguem selecinonar o nome de um produto
     // essa fucao pegará o valor e dará um push em nomeProd_Criado
-    Push_nomeProd_Criado() {
-      console.log(this.nomeProd_Criado);
-      console.log(this.n_producao);
-      console.log(this.data_inicio.toString().replace("T", " "));
-      console.log(this.data_fim.toString().replace("T", " "));
-      console.log(this.regist_ocorren);
-      console.log(this.objetivo);
-      console.log(this.nomeAuxiliares);
-      console.log(this.nomeTecnicos);
-      console.log(this.ingredientesUtili);
-    },
+    // Push_nomeProd_Criado() {
+    //   console.log(this.nomeProd_Criado);
+    //   console.log(this.n_producao);
+    //   console.log(this.data_inicio.toString().replace("T", " "));
+    //   console.log(this.data_fim.toString().replace("T", " "));
+    //   console.log(this.regist_ocorren);
+    //   console.log(this.objetivo);
+    //   console.log(this.nomeAuxiliares);
+    //   console.log(this.nomeTecnicos);
+    //   console.log(this.ingredientesUtili);
+    // },
 
     BotaoIncrementProdutos() {
       this.loopProdutos++;
@@ -176,20 +177,79 @@ export default {
     },
 
     async insertOutrosAuxiliares() {
-      await IsertAuxiliar(this.nomeNovoAuxiliar);
-      this.nomeAuxiliares.push(this.nomeNovoAuxiliar);
-      this.nomeNovoAuxiliar = "outros";
+      if (this.nomeNovoAuxiliar == "Outros" || this.nomeNovoAuxiliar == "") {
+          document.getElementById("dropdawn-auxiliares").style.border = "2px solid red"
+          setTimeout(() => {
+          document.getElementById("dropdawn-auxiliares").style.border = ""
+        }, 3000)
+      }
+
+      else {
+        await IsertAuxiliar(this.nomeNovoAuxiliar);
+        this.nomeAuxiliares.push(this.nomeNovoAuxiliar);
+        this.exibirAuxiliares()
+      }
+     
+      this.nomeNovoAuxiliar = "Outros";
+    },
+
+    async insertOutrosTecnicos() {
+      if (this.nomeNovoTecnico == "Outros" || this.nomeNovoTecnico == "") {
+        document.getElementById("dropdawn-tecnicos").style.border = "2px solid red"
+        setTimeout(() => {
+          document.getElementById("dropdawn-tecnicos").style.border = ""
+        }, 3000)
+      }
+
+      else {
+        await InsertTecnico(this.nomeNovoTecnico)
+        this.nomeTecnicos.push(this.nomeNovoTecnico)
+        this.exibirTecnicos()
+      }
+      this.nomeNovoTecnico = "Outros"
     },
 
     async insertOutrosProdutos() {
-      await InsertProduto(this.nomeNovoProduto, this.medicao);
-      this.nomeProd_Criado[this.nomeProd_Criado.length - 1].nome_produto =
+
+      if (this.nomeNovoProduto == "Outros" || this.nomeNovoProduto == "" 
+      || this.medicao == "" 
+      || this.quantidadeNovoProduto == 0 || this.quantidadeNovoProduto == "") {
+        
+        document.getElementById("dropdawn-produtos").style.border = "2px solid red"
+        setTimeout(() => {
+          document.getElementById("dropdawn-produtos").style.border = ""
+        }, 3000)
+      }
+
+      else {
+        await InsertProduto(this.nomeNovoProduto, this.medicao);
+        this.nomeProd_Criado[this.nomeProd_Criado.length - 1].nome_produto =
         this.nomeNovoProduto;
-      this.nomeNovoProduto = "outros";
+        this.nomeProd_Criado[this.nomeProd_Criado.length - 1].quantidade_produzida = this.quantidadeNovoProduto
+      }
+     
+      this.nomeNovoProduto = "Outros";
+      this.quantidadeNovoProduto = 0
+    },
+
+    outrosProsutos() {
+      let elem = this.nomeProd_Criado.length - 1
+      // quando o usuario clica no botao "outros"
+      // verificamos se meu ultimo elemento ou o primeiro, ja esta como os valores preenchidos
+      // ou seja se nao estao vazios
+      // se estiver preenchido, vamos acrescentar um novo objeto dentro do array para evitar sobreescrita
+      if (this.nomeProd_Criado[elem].nome_produto != "" || this.nomeProd_Criado[elem].quantidade_produzida != 0) {
+        this.nomeProd_Criado.push({ nome_produto: "", quantidade_produzida: 0 })
+      }
+
     },
 
     apagarValueOutrosProdutos() {
       this.nomeNovoProduto = "";
+    },
+
+    apagarValueQuantidadeProduto() {
+      this.quantidadeNovoProduto = ""
     },
 
     apagarValueOutrosAuxiliares() {
@@ -212,6 +272,7 @@ export default {
 
 <template>
   <div class="mx-5">
+
     <MensagemNotificacao :msg="msgErro" :isActive="ativo" :sucesso="sucesso" />
 
     <form>
@@ -242,6 +303,7 @@ export default {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                id="dropdawn-tecnicos"
               ></button>
               <ul class="dropdown-menu">
                 <div v-for="n in nomeTec" :key="n.nome" class="form-check">
@@ -269,7 +331,7 @@ export default {
                     @click="apagarValueOutrosTecnicos"
                   />
                   <button
-                    @click="inserOutrosTecnicos"
+                    @click="insertOutrosTecnicos"
                     style="font-weight: 700"
                     type="button"
                     class="
@@ -295,6 +357,7 @@ export default {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                id="dropdawn-auxiliares"
               ></button>
               <ul class="dropdown-menu ps-2">
                 <div v-for="n in nomeAuxi" :key="n.nome" class="form-check">
@@ -451,13 +514,6 @@ export default {
                             >
                           </div>
 
-                          <!-- <button
-                              type="button"
-                              class="mt-2 ms-2 btn btn-primary"
-                              @click="BotaoIncrementIngredientes"
-                              >
-                              + adicinar ingrediente
-                            </button> -->
                         </form>
 
                         <div class="ab botoes col-md-4 mt-2 ms-2">
@@ -509,9 +565,10 @@ export default {
           </div>
           <!-- produtos a direita -->
           <div class="col">
+
             <div class="row">
               <label for="text" class="col-md-3"> Produto(os): </label>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <div
                   class="az ab border border-0"
                   id="accordionPanelsStayOpenExample"
@@ -530,6 +587,7 @@ export default {
                       data-bs-target="#panelsStayOpen-collapseThree"
                       aria-expanded="false"
                       aria-controls="panelsStayOpen-collapseThree"
+                      id="dropdawn-produtos"
                     ></button>
                     <div
                       id="panelsStayOpen-collapseThree"
@@ -587,13 +645,7 @@ export default {
                           </div>
                         </form>
 
-                        <!-- <button
-                            type="button"
-                            class="mt-2 btn btn-primary"
-                            @click="BotaoIncrementProdutos"
-                          >
-                            + adicinar produto
-                          </button> -->
+                        
                         <div class="ab botoes col-md-4 mt-2 ms-2">
                           <button
                             style="font-weight: 700"
@@ -616,7 +668,7 @@ export default {
                               height: 100%;
                               width: 0.2rem;
                               background-color: #11350198;
-                            "
+                          "
                           ></span>
 
                           <button
@@ -636,91 +688,117 @@ export default {
                           </button>
                         </div>
 
-                        <!--  -->
-                        <div class="row grid gap-0 column-gap-0 mt-1">
-                          <input
-                            class="col-lg-3 ms-3 border border-1 rounded-2"
-                            type="text"
-                            name="Outros"
-                            :id="id_outros_prod"
-                            v-model="nomeNovoProduto"
-                            @click="apagarValueOutrosProdutos"
-                          />
-
-                          <div class="dropdown col-lg-2">
-                            <button
-                              type="button"
-                              class="btn btn-secondary dropdown-toggle"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            ></button>
-                            <ul class="dropdown-menu pt-5">
-                              <li>
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  value="Kg"
-                                  id="Kg"
-                                  name="Kg"
-                                  v-model="medicao"
-                                />
-                                <label
-                                  class="form-check-label ps-2"
-                                  for="flexCheckChecked"
-                                  >Kg</label
-                                >
-                              </li>
-                              <li>
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  value="L"
-                                  id="L"
-                                  name=""
-                                  v-model="medicao"
-                                />
-                                <label
-                                  class="form-check-label ps-2"
-                                  for="flexCheckChecked"
-                                  >L</label
-                                >
-                              </li>
-                              <li>
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  value="unidade"
-                                  id="unidade"
-                                  name=""
-                                  v-model="medicao"
-                                />
-                                <label
-                                  class="form-check-label ps-2"
-                                  for="flexCheckChecked"
-                                  >unidade</label
-                                >
-                              </li>
-                            </ul>
-                          </div>
+                        <!-- teste com o botao de outro -->
                         
-                          
-                          <button
-                            @click="insertOutrosProdutos"
-                            style="font-weight: 700"
-                            type="button"
-                            class="
-                              col-lg-2
-                              botoes
-                              justify-content-center
-                              d-flex
-                              border-0
-                              rounded-2
-                            "
-                          >
-                            +
-                          </button>
+                        <!-- Button trigger modal -->
+                      <button type="button"
+                      @click="outrosProsutos" 
+                      class="btn botoes mt-2 ms-2 d-flex justify-content-center rounded-2" 
+                      data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        outros
+                      </button>
 
+                      <!-- Modal -->
+                      <div class="modal fade modal-dialog modal-dialog-centered" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Inserir um novo produto</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                             <!-- conteudo -->
+
+                             <div class="row">
+                              <!-- border border-1 rounded-2 -->
+                              <input
+                              class="col-md-9 ms-3 border border-2 rounded-2"
+                              type="text"
+                              name="Outros"
+                              v-model="nomeNovoProduto"
+                              @click="apagarValueOutrosProdutos"
+                              style="height: 2.4rem;"
+                              />
+
+                              <input
+                              class="col-md-9 mt-2 ms-3 border border-2 rounded-2"
+                              type="number"
+                              name="Outros"
+                              v-model="quantidadeNovoProduto"
+                              @click="apagarValueQuantidadeProduto"
+                              style="height: 2.4rem;"
+                              />
+
+                              <div class="dropdown ms-1">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary dropdown-toggle col-md-10 mt-2"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                ></button>
+                                <ul class="dropdown-menu pt-5">
+                                  <li>
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      value="Kg"
+                                      id="Kg"
+                                      name="Kg"
+                                      v-model="medicao"
+                                    />
+                                    <label
+                                      class="form-check-label ps-2"
+                                      for="flexCheckChecked"
+                                      >Kg</label
+                                    >
+                                  </li>
+                                  <li>
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      value="L"
+                                      id="L"
+                                      name=""
+                                      v-model="medicao"
+                                    />
+                                    <label
+                                      class="form-check-label ps-2"
+                                      for="flexCheckChecked"
+                                      >L</label
+                                    >
+                                  </li>
+                                  <li>
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      value="unidade"
+                                      id="unidade"
+                                      name=""
+                                      v-model="medicao"
+                                    />
+                                    <label
+                                      class="form-check-label ps-2"
+                                      for="flexCheckChecked"
+                                      >unidade</label
+                                    >
+                                  </li>
+                                </ul>
+                              </div>
+
+                             </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn botoes"
+                              @click="insertOutrosProdutos">inserir</button>
+                            </div>
+                          </div>
                         </div>
+                      </div>
+                      
+                        <!-- ======= -->
+
                       </div>
                     </div>
                   </div>
@@ -767,3 +845,7 @@ export default {
     </div>
   </div>
 </template>
+
+<style>
+
+</style>
