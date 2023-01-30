@@ -42,9 +42,9 @@
           <div class="row">
             <div class="col-11">
               <div class="d-flex justify-content-center">
-                <router-link class="botoes rounded-pill col-7 nav-link"
+                <button class="botoes rounded-pill col-7"
                 @click="Entrar_na_Conta" 
-                :to="link">entrar</router-link>
+                type="button">entrar</button>
               </div>
             </div>
           </div>
@@ -71,6 +71,7 @@ export default {
   components: {
     MensagemErro
   },
+  emits: ["ExibirNavBar"],
 
   data() {
     return {
@@ -88,8 +89,11 @@ export default {
 
           if (validar.data == true) {
             // entrar
-            this.link = "/about"
-            window.location.href = "/about"
+            // this.link = "/registrar_producao"
+            // window.location.href = "/registrar_producao"
+
+            // fazer o formulario desaparecer
+            this.$emit('ExibirNavBar')
           }
           else {
             // msg de erro

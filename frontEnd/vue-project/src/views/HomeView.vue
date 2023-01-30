@@ -12,6 +12,6 @@
 
 <template>
   <main>
-    <form-login></form-login>
+    <!-- <form-login></form-login> -->
   </main>
 </template>

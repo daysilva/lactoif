@@ -1,7 +1,7 @@
 <template>
   <div>
     <form class="mt-5 border border-3 rounded-4">
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end"> 
         <button
           @click="$emit('fecharHistorico')"
           type="button"
@@ -199,7 +199,7 @@ export default {
     dados: Object,
   },
 
-  data() {
+  data() { 
     return {
       valores: "",
       data_inicio: "",
