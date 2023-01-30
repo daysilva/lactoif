@@ -22,6 +22,7 @@
       <!-- lado direito -->
       <div class="col-md-6 ">
         <div class="az ab border border-2  p-4 ">
+          <h5>Atualize o Estoque</h5>
           <div>
 
 
@@ -54,7 +55,7 @@
 
               <div class="ab botoes col-md-4 mt-2 ms-2">
                 <button @click="AtualizarEstoque" id="update-button-estoque"
-                  class="botoes border-0 d-flex justify-content-center" type="button">
+                  class="botoes border-0 d-flex justify-content-center" type="button" style="font-weight: 700;">
                   Atualizar <img class="update-icon-estoque" src="arrow-rotate-right-solid.svg">
                 </button>
 
@@ -66,18 +67,23 @@
 
         <!-- outro lado direito -->
 
-
+       
         <div class="col-md-12 mt-4">
-          <div class="az ab border border-2">
+          
+          <div class="az ab border border-2 p-4">
             <h5>Adicione Ingredientes</h5>
-            <input class="col-lg-2 ms-3 border border-1 rounded-2" type="text" name="outros" :id="id_outros_prod"
-              v-model="nomeNovoingrediente" @click="apagarValueNovoIngrediente">
+            
+            <div class="row">
+           
+            <input class="col-md-2  ms-3 border border-1 rounded-2" type="text" name="outros" :id="id_outros_prod"
+              v-model="nomeNovoingrediente" @click="apagarValueNovoIngrediente" >
 
-            <div class="dropdown col-lg-2">
-              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <div class="col-md-5">
+            <div class="dropdown  " > 
+              <button type="button" class=" btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown"
+                aria-expanded="false"> Und de Medida
               </button>
-              <ul class="dropdown-menu pt-1">
+              <ul class="dropdown-menu pt-1 ">
                 <li>
                   <input class="form-check-input" type="radio" value="Kg" id="Kg" name="medicao" v-model="medicao">
                   <label class="form-check-label ps-2" for="flexCheckChecked">Kg</label>
@@ -91,17 +97,28 @@
                   <label class="form-check-label ps-2" for="flexCheckChecked">unidade</label>
                 </li>
               </ul>
+              
             </div>
-
-            <button @click="insertNovoIngrediente" style="font-weight: 700;" type="button"
-              class="col-lg-2 botoes justify-content-center d-flex border-0 rounded-2">+</button>
+          
+            </div>
+          
           </div>
-
+         
+            <div class="ab botoes col-md-4 mt-3 ms-2 ">
+            <button @click="insertNovoIngrediente" style="font-weight: 700;" type="button"
+              class="botoes justify-content-center d-flex border-0 rounded-2 "> Adicionar +</button>
+            </div>
+            
+          </div>
         </div>
+
+    
+        </div>
+      
       </div>
 
     </div>
-  </div>
+  
   
   
 </template>
