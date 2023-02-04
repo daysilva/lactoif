@@ -29,11 +29,18 @@ export default {
       // 2022-12-31T17:16:00.000Z
       // ['2022', '12', '31', '17:15']
 
+
+      const horaCertaInicio = new Date(dataIni);
+
+      horaCertaInicio.setHours(horaCertaInicio.getHours() - 3);
+      const x = horaCertaInicio.toISOString()
+
       const arrayDataIni = []
-      arrayDataIni.push(dataIni.slice(0, 4))
-      arrayDataIni.push(dataIni.slice(5, 7))
-      arrayDataIni.push(dataIni.slice(8, 10))
-      arrayDataIni.push(dataIni.slice(11, 16))
+      arrayDataIni.push(x.slice(0, 4))
+      arrayDataIni.push(x.slice(5, 7))
+      arrayDataIni.push(x.slice(8, 10))
+      arrayDataIni.push(x.slice(11, 16))
+
 
       for (let i = 2; i >= 0; i--) {
         if (i != 0) {
@@ -44,16 +51,37 @@ export default {
       }
 
       const arrayDataFim = []
-      arrayDataFim.push(dataFim.slice(0, 4))
-      arrayDataFim.push(dataFim.slice(5, 7))
-      arrayDataFim.push(dataFim.slice(8, 10))
-      arrayDataFim.push(dataFim.slice(11, 16))
+
+      const horaCertaFim = new Date(dataFim);
+
+      horaCertaFim.setHours(horaCertaFim.getHours() - 3);
+      const y = horaCertaFim.toISOString()
+
+      // console.log(date);
+
+      arrayDataFim.push(y.slice(0, 4))
+      arrayDataFim.push(y.slice(5, 7))
+      arrayDataFim.push(y.slice(8, 10))
+      arrayDataFim.push(y.slice(11, 16))
+
+      //console.log(arrayDataFim);
+
+      // const temp3 = arrayDataFim[3].slice(0, 2)
+
+      // const temp4 = arrayDataFim[3].slice(2, 6)
+
+      // console.log(temp3-3);
+      // console.log(temp4);
+
+      // const hora_certa2=(temp3-3 + temp4)
+
+      // arrayDataFim[3]=hora_certa2
 
       for (let i = 2; i >= 0; i--) {
         if (i != 0) {
           this.data_fim += arrayDataFim[i] + "/"
         } else {
-          this.data_fim += arrayDataFim[i] + " " + arrayDataIni[3]
+          this.data_fim += arrayDataFim[i] + " " + arrayDataFim[3]
         }
       }
 
@@ -117,8 +145,8 @@ export default {
             <div class="row" style="diplay: flex; padding-top: 4rem">
               <label for="text" class="col-md-12">Ingrendientes Ultilizados:</label>
 
-              <div class="col-md-5">
-                <div v-for="ing in dados.ingrediente_produto" :key="ing.nome" class="input-group">
+              <div class="col-md-7 mt-1">
+                <div v-for="ing in dados.ingrediente_produto" :key="ing.nome" class="input-group mt-1">
                   <div class="form-control az ac">{{ ing.nome }}</div>
                   <span class="input-group-text ax">{{ ing.quantidade }} {{ ing.medicao }}</span>
                 </div>
@@ -131,10 +159,10 @@ export default {
             <div class="row" style="diplay: flex; padding-top: 4rem">
               <label for="text" class="col-md-12">Produto(s) Produzido(s):</label>
 
-              <div class="col-md-5">
+              <div class="col-md-7 ">
 
-                <div v-for="prod in dados.produto_producao" :key="prod.nome_produto" class="input-group">
-                  <div class="form-control az ac">{{ prod.nome_produto }}</div>
+                <div v-for="prod in dados.produto_producao" :key="prod.nome_produto " class="input-group mt-1">
+                  <div class="form-control az ac mt-">{{ prod.nome_produto }}</div>
                   <span class="input-group-text ax">{{ prod.quantidade_produzida }} {{ prod.medicao }}</span>
                 </div>
 
@@ -150,9 +178,9 @@ export default {
             <div class="row mt-5">
               <label for="text" class="col-md-12">Técnico(os) Responsável(eis):</label>
 
-              <div class="col-md-4">
+              <div class="col-md-7 ">
 
-                <div v-for="tec in dados.tecnico_producao" :key="tec.nome" class="form-control az ab"
+                <div v-for="tec in dados.tecnico_producao" :key="tec.nome" class="form-control az ab  mt-1"
                   aria-label="Recipient's username">
                   {{ tec.nome }}
                 </div>
@@ -166,8 +194,8 @@ export default {
             <div class="row mt-5">
               <label for="text" class="col-md-12">Auxiliar(es) de Produção:</label>
 
-              <div class="col-md-4">
-                <div v-for="aux in dados.auxiliar_producao" :key="aux.nome" class="form-control az ab">{{ aux.nome }}
+              <div class="col-md-7 mt-1">
+                <div v-for="aux in dados.auxiliar_producao" :key="aux.nome" class="form-control az ab mt-1">{{ aux.nome }}
                 </div>
               </div>
             </div>

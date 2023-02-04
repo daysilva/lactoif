@@ -17,7 +17,9 @@ export default {
       h: false,
       botao: true,
       update_registro: false,
-      query: ""
+      query: "",
+      exibir_registro: false
+
     }
   },
 
@@ -26,7 +28,12 @@ export default {
       const n_prod = n_producao.replace("/", "-")
       const x = await getHistorico(n_prod)
       this.dados = x.data
-      // console.log(this.dados)
+    },
+
+    async resultadoHistorico() {
+      this.botao = false
+      this.exibir_registro = true
+      await this.GetHistorico(this.query)
     },
 
     async pegarnome() {
@@ -38,12 +45,13 @@ export default {
     AparecerHistorico() {
       this.h = true
       this.botao = false
+      this.exibir_registro = false
     },
 
     fechaHistorico() {
       this.h = false
       this.botao = true
-
+      this.exibir_registro = false
       this.h = false
       this.botao = true
     },
@@ -61,7 +69,7 @@ export default {
 
     //
     async pesquisa() {
-      await pesquisarHistorico(this.query)
+      await pesquisarHistorico()
     }
     //
   },
@@ -89,7 +97,7 @@ export default {
 
               <img id="lupa" src="lupa.png">
 
-              <button class="btn btn-primary" type="button" @click=pesquisa()>
+              <button class="btn btn-primary" type="button" @click="resultadoHistorico(query)">
 
                 Pesquisar
 
@@ -120,13 +128,21 @@ export default {
       <div v-if="h == true">
 
         <div v-if="h == true">
-          <ExibirHistorico @fechar-Historico="fechaHistorico" @update-Registro="ExibirTela_update" v-if="dados != ''"
-            :dados="dados" />
+          <ExibirHistorico @fechar-Historico="fechaHistorico" @update-Registro="ExibirTela_update" v-if="dados != ''" :dados="dados" />
         </div>
       </div>
       <div v-if="update_registro == true">
         <UpdateRegistro :dados="dados" />
       </div>
+
+      <div v-if="exibir_registro == true">
+                  <div class="row">
+            <button class="btn btn-primary col-md-3 ab d-flex justify-content-start" type="button"
+              @click="AparecerHistorico(), GetHistorico(query)">Produção n° {{ dados.n_producao }}
+            </button>
+          </div>
+      </div>
+
     </div>
   </div>
 </template>

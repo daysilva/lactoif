@@ -242,6 +242,8 @@ export default {
         this.nomeProd_Criado.push({ nome_produto: "", quantidade_produzida: 0 })
       }
 
+      document.getElementById(exampleModal).style.display="block";
+
     },
 
     apagarValueOutrosProdutos() {

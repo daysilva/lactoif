@@ -11,7 +11,8 @@ senha varchar(30)
 );
 
 insert into usuarios (nome, senha) values
-('root', 'ifrn');
+('Ramon', 'ifrn'),
+('Felipe','1234');
 
 create table tecnicos(
 id integer auto_increment,
@@ -99,7 +100,7 @@ quantidade integer,
  
 delimiter $$
 
--- POR ALGUM MOTIVO ELE ESTA DIMINUINDO A QUANTIDADE DE TODOS
+
 create trigger UpdateEstoque after insert
 on ingrediente_produto for each row
 begin 
@@ -111,32 +112,62 @@ end $$
 delimiter ;
 
 
+
 insert into tecnicos (nome, matricula, senha) values
-("Jaziel", "22022#", "123456"),
-("Ramon", "22023#", "123456"),
-("Mayomir", "22024#", "123456");
+("Felipe Araujo dos Santos", "22022#", "123456"),
+("Ramon Aráujo dos Santos", "22023#", "12345"),
+("Arquileine Maionomy Benicio de Carvalho", "22024#", "1234");
 
 insert into auxiliares (nome) values 
-("Andreilson"),
-("Allan"),
-("Ricardo"),
-("Denys");
+("Laylla Christtyann Dantas"),
+("Gabriel Bruno Adelino da Silva"),
+("Pablo Thaisse Ferreira de Souza"),
+("Elisângela Figueiredo de Lima Santos"),
+("Jerffson Amaral de Moura"),
+("Jéssica Thaise Ferreira de Souza");
+
 
 insert into ingredientes (nome, quantidade_estoque, medicao) values
-("açucar", 10, "Kg"),
-("leite", 2, "L"),
-("farinha", 5, "Kg"),
-("nutela", 3, "Kg");
+("Açucar", 50, "Kg"),
+("Sal",50 , "kg"),
+("Bicarbonato de sódio",50 , "kg"),
+("Cirato de sódio", 50, "kg"),
+("Cloreto de cálcio", 50, "kg"),
+("Coagulante",50 , "L"),
+("Ácido láctico",50 , "L"),
+("Corante a base de urucum",50 , "kg"),
+("Preparado de morango",50 , "Kg"),
+("Preparado de açaí com banana",50 , "kg"),
+("Preparado de banana, aveia e mel", 50, "kg"),
+("Preparado de ameixa", 50, "kg"),
+("Preparado de graviola", 50, "kg"),
+("Leite desnatado",50 , "L"),
+("Creme de leite fresco ", 50, "Kg"),
+("Leite", 20, "L");
+
 
 insert into nome_produto (nome_produto, medicao) values
-("queijo", "Kg"),
-("iorgute", "L"),
- ("bolo", "Und"),
- ("doce", "g");
+
+("Queijo coalho", "kg"),
+ ("Doce de leite pastoso", "kg"),
+ ("Iogute", "L"),
+ ("Coalhada", "Kg"),
+ ("Queijo minas padrão", "Kg"),
+ ("Queijo minas frescal", "kg"),
+ ("Queijo do reino", "kg"),
+ ("Queijo pamesão", "Kg"),
+ ("Queijo petit-suisse", "Kg"),
+ ("Doce de leite em barra", "Kg"),
+ ("Ricota", "Kg"),
+ ("Iogute grego", "Kg"),
+ ("Queijo gouda", "Kg"),
+ ("Pate de ricota", "Kg"),
+ ("Manteiga de garrafa", "L"),
+ ("Manteiga pastosa", "Kg"),
+ ("Queijo Brie", "Kg");
 
 insert into producao (n_producao, data_inicio, data_fim, objetivo) values
 ("1/2022", now(), '2022-12-31 23:59:59', "aula");
-
 
 insert into produto_producao (id_producao, id_produto, quantidade_produzida) values
 (1, 1, 3),
@@ -151,6 +182,3 @@ insert into produto_producao (id_producao, id_produto, quantidade_produzida) val
 
 insert into ingrediente_produto (id_ingrediente, id_producao, quantidade) values 
 (1, 1, 8);
-
-
-

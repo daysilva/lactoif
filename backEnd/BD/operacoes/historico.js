@@ -5,6 +5,7 @@ const connection = require('../conexao')
 const pegarProducao = async (n_producao) => {
     const producao = await connection.execute('SELECT * FROM producao where n_producao = ?',[n_producao])
     return producao[0][0]
+    // console.log(producao[0][0]);
 }
 
 
@@ -78,6 +79,8 @@ const getHistorico = async (n_producao) => {
     }
     return dados
 }
+
+// pegarProducao("3/2023")
 
 module.exports = {
     getHistorico

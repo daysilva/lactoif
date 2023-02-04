@@ -126,3 +126,7 @@ form #lupa {
 form #lupa:hover {
     transform: scale(1.1);
 }
+
+#exampleModal{
+    display:none;
+}

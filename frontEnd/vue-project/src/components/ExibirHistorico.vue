@@ -1,7 +1,7 @@
 <template>
   <div>
     <form class="mt-5 border border-3 rounded-4">
-      <div class="d-flex justify-content-end"> 
+      <div class="d-flex justify-content-end">
         <button
           @click="$emit('fecharHistorico')"
           type="button"
@@ -70,13 +70,15 @@
           <!-- esquerda -->
           <div class="col">
             <div class="row" style="diplay: flex; padding-top: 4rem">
-              <label for="text" class="col-md-12">Ingrendientes Utilizados:</label>
+              <label for="text" class="col-md-12"
+                >Ingrendientes Utilizados:</label
+              >
 
-              <div class="col-md-5">
+              <div class="col-md-7 mt-1">
                 <div
                   v-for="ingrd in dados.ingrediente_produto"
                   :key="ingrd.nome"
-                  class="input-group"
+                  class="input-group mt-1"
                 >
                   <div class="form-control az ac">{{ ingrd.nome }}</div>
                   <span class="input-group-text ax"
@@ -89,13 +91,15 @@
           <!-- direita -->
           <div class="col">
             <div class="row" style="diplay: flex; padding-top: 4rem">
-              <label for="text" class="col-md-12">Produto(s) Produzido(s):</label>
+              <label for="text" class="col-md-12"
+                >Produto(s) Produzido(s):</label
+              >
 
-              <div class="col-md-5">
+              <div class="col-md-7">
                 <div
                   v-for="prod in dados.produto_producao"
                   :key="prod.nome_produto"
-                  class="input-group"
+                  class="input-group mt-1"
                 >
                   <div class="form-control az ac">{{ prod.nome_produto }}</div>
                   <span class="input-group-text ax"
@@ -111,13 +115,15 @@
           <!-- esquerdo -->
           <div class="col">
             <div class="row mt-5">
-              <label for="text" class="col-md-12">Técnico(os) Responsável(eis):</label>
+              <label for="text" class="col-md-12"
+                >Técnico(os) Responsável(eis):</label
+              >
 
-              <div class="col-md-4">
+              <div class="col-md-7 mt-1">
                 <div
                   v-for="tec in dados.tecnico_producao"
                   :key="tec.nome"
-                  class="form-control az ab"
+                  class="form-control az ab mt-1"
                   aria-label="Recipient's username"
                 >
                   {{ tec.nome }}
@@ -129,13 +135,15 @@
           <!-- direito -->
           <div class="col">
             <div class="row mt-5">
-              <label for="text" class="col-md-12">Auxiliar(es) de Produção:</label>
+              <label for="text" class="col-md-12"
+                >Auxiliar(es) de Produção:</label
+              >
 
-              <div class="col-md-4">
+              <div class="col-md-7 mt-1">
                 <div
                   v-for="aux in dados.auxiliar_producao"
                   :key="aux.nome"
-                  class="form-control az ab"
+                  class="form-control az ab mt-1"
                 >
                   {{ aux.nome }}
                 </div>
@@ -175,7 +183,11 @@
       </div>
       <div class="row">
         <div class="col">
-          <button class="btn botoes" @click="$emit('updateRegistro')" type="button">
+          <button
+            class="btn botoes"
+            @click="$emit('updateRegistro')"
+            type="button"
+          >
             EDITAR
           </button>
         </div>
@@ -199,7 +211,7 @@ export default {
     dados: Object,
   },
 
-  data() { 
+  data() {
     return {
       valores: "",
       data_inicio: "",
@@ -220,43 +232,63 @@ export default {
       if (this.dados != null) {
         this.configDatas(this.dados.data_inicio, this.dados.data_fim);
       }
-    },
-
-    async configDatas(dataIni, dataFim) {
-      // 2022-12-31T17:16:00.000Z
-      // ['2022', '12', '31', '17:15']
-
-      const arrayDataIni = [];
-      arrayDataIni.push(dataIni.slice(0, 4));
-      arrayDataIni.push(dataIni.slice(5, 7));
-      arrayDataIni.push(dataIni.slice(8, 10));
-      arrayDataIni.push(dataIni.slice(11, 16));
-
-      console.log(arrayDataIni);
-
-      for (let i = 2; i >= 0; i--) {
-        if (i != 0) {
-          this.data_inicio += arrayDataIni[i] + "/";
-        } else {
-          this.data_inicio += arrayDataIni[i] + " " + arrayDataIni[3];
-        }
-      }
-
-      const arrayDataFim = [];
-      arrayDataFim.push(dataFim.slice(0, 4));
-      arrayDataFim.push(dataFim.slice(5, 7));
-      arrayDataFim.push(dataFim.slice(8, 10));
-      arrayDataFim.push(dataFim.slice(11, 16));
-
-      for (let i = 2; i >= 0; i--) {
-        if (i != 0) {
-          this.data_fim += arrayDataFim[i] + "/";
-        } else {
-          this.data_fim += arrayDataFim[i] + " " + arrayDataIni[3];
-        }
-      }
+      console.log(this.dados)
     },
     
+
+    async configDatas(dataIni, dataFim) {
+      // "2022-12-31T17:16:00.000Z"
+      // ['2022', '12', '31', '17:15']
+
+      const horaCertaInicio = new Date(dataIni);
+
+      horaCertaInicio.setHours(horaCertaInicio.getHours() - 3);
+      const x = horaCertaInicio.toISOString()
+
+      const arrayDataIni = []
+      arrayDataIni.push(x.slice(0, 4))
+      arrayDataIni.push(x.slice(5, 7))
+      arrayDataIni.push(x.slice(8, 10))
+      arrayDataIni.push(x.slice(11, 16))
+
+      
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_inicio += arrayDataIni[i] + "/"
+        } else {
+          this.data_inicio += arrayDataIni[i] + " " + arrayDataIni[3]
+        }
+      }
+
+      const arrayDataFim = []
+
+const horaCertaFim = new Date(dataFim);
+
+horaCertaFim.setHours(horaCertaFim.getHours() - 3);
+const y = horaCertaFim.toISOString()
+
+// console.log(date);
+
+arrayDataFim.push(y.slice(0, 4))
+arrayDataFim.push(y.slice(5, 7))
+arrayDataFim.push(y.slice(8, 10))
+arrayDataFim.push(y.slice(11, 16))
+
+
+
+      // console.log(arrayDataFim)
+
+      
+      for (let i = 2; i >= 0; i--) {
+        if (i != 0) {
+          this.data_fim += arrayDataFim[i] + "/"
+        } else {
+          this.data_fim += arrayDataFim[i] + " " + arrayDataFim[3]
+        }
+      }
+
+    },
+
     async deletarhistorico() {
       const n_prod = await this.dados.n_producao.replace("/", "-");
       await apagarRegistro(n_prod);

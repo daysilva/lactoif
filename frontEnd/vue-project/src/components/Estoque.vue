@@ -10,7 +10,7 @@
       <!-- lado esquerdo -->
       <div class="col-md-6">
 
-        <div v-for="ing in ingredientes" :key="ing.nome" class="col-md-5">
+        <div v-for="ing in ingredientes" :key="ing.nome" class="col-md-7 mt-1">
           <div class="input-group">
             <div class="form-control az ac"> {{ ing.nome }}</div>
             <span class="input-group-text ax">{{ ing.quantidade_estoque }} {{ ing.medicao }}</span>
