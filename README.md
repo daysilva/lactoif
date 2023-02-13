@@ -3,17 +3,22 @@ Para baixar dependencias e colocar o sistema para rodar, siga as seguintes etapa
 
 execute esse arquivo que contém o banco de dados, para que o mesmo seja criado.
 
-
 bancoLactoIF.sql
 
 
 O arquivo:
 lactoif\backEnd\BD\conexao.js
+
 É ele quem se conecta com o banco de dados. Você deve alterar o password, inserindo a senha que você usa para se conectar com seu banco de dados
+
     host: 'localhost',
+    
     user: 'root',
+    
     password: "sua senha",
+    
     database: 'lactoif'
+    
  
 Agora você deve instalar as dependências.
 "Dica! deixe dois terminais abertos. Um para o backEnd e outro para o frontEnd"
