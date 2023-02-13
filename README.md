@@ -26,7 +26,7 @@ lactoif\backEnd\BD\conexao.js
  
 Agora você deve instalar as dependências.
 
-"Dica! deixe dois terminais abertos. Um para o backEnd e outro para o frontEnd"
+    "Dica! deixe dois terminais abertos. Um para o backEnd e outro para o frontEnd"
 
 Dentro do diretorio backEnd, digite o comando npm install:
 
