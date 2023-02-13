@@ -31,11 +31,11 @@ Agora você deve instalar as dependências.
 
 Dentro do diretorio backEnd, digite o comando npm install:
 
-lactoif\backEnd> npm install
+    lactoif\backEnd> npm install
 
 Dentro do diretorio frontEnd\vue-project, digite o comando npm install:
 
-lactoif\frontEnd\vue-project> npm install
+    lactoif\frontEnd\vue-project> npm install
 
 
 Agora que você ja configurou tudo, coloque o projeto para rodar
@@ -43,11 +43,11 @@ Agora que você ja configurou tudo, coloque o projeto para rodar
 
 Para o terminal que levantará o servidor do backEnd:
 
-lactoif\backEnd\src> node .\server.js
+    lactoif\backEnd\src> node .\server.js
 
 Para o terminal que executará o frontEnd:
 
-lactoif\frontEnd\vue-project> npm run dev
+    lactoif\frontEnd\vue-project> npm run dev
 
 
 
